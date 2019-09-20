@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="card-body">
-            <form action="<?php echo site_url('operator/simpan'); ?>" method="post">
+            <form action="<?php echo site_url('administrator/simpan'); ?>" method="post">
                 <input type="hidden" name="id" value="<?php echo $id ?? ""; ?>">
 
                 <h4>Informasi Diri</h4>
