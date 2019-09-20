@@ -10,8 +10,8 @@
         <div class="card-header py-3">
             <div class="d-flex align-items-center">
                 <h6 class="mr-auto mb-0 font-weight-bold text-primary">Data Admin</h6>
-                <a class="btn btn-success" href="<?php echo site_url('operator/tambah'); ?>"><i class="fas fa-plus"></i>
-                    Tambah Siswa</a>
+                <a class="btn btn-success" href="<?php echo site_url('administrator/tambah'); ?>"><i class="fas fa-plus"></i>
+                    Tambah Admin</a>
             </div>
         </div>
         <div class="card-body">
@@ -40,9 +40,9 @@
                             <td><?php echo $row->username; ?></td>
                             <td><?php echo $row->password; ?></td>
                             <td><a class="btn btn-outline-warning btn-sm"
-                                    href="<?php echo site_url('operator/edit/' . $row->id_administrator); ?>">Edit</a>
+                                    href="<?php echo site_url('administrator/edit/' . $row->id_administrator); ?>">Edit</a>
                                 <a class="btn btn-outline-danger btn-sm"
-                                    href="<?php echo site_url('operator/hapus/' . $row->id_administrator); ?>">Hapus</a></td>
+                                    href="<?php echo site_url('administrator/hapus/' . $row->id_administrator); ?>">Hapus</a></td>
                         </tr>
                         <?php } ?>
                     </tbody>
