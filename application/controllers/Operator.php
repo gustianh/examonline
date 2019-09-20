@@ -41,19 +41,14 @@ class Admin extends CI_Controller
             // buat kueri
             $data = array(
                 "username" => $this->input->post('username'),
-                "tanggal_lahir" => $this->input->post('tanggal_lahir'),
-                "jenis_kelamin" => $this->input->post('jenis_kelamin'),
-                "nidn" => $this->input->post('nidn'),
-                "jabatan" => $this->input->post('jabatan'),
-                "username" => $this->input->post('username'),
                 "password" => $this->input->post('password')
             );
             if ($this->input->post('id') == null) {
                 // jika tidak ada ID, maka buat data baru
-                $this->db->insert('guru', $data);
+                $this->db->insert('administrator', $data);
             } else {
                 // jika ada ID, berarti edit
-                $this->db->update('guru', $data, array('id_guru' => $this->input->post("id")));
+                $this->db->update('administrator', $data, array('id_administrator' => $this->input->post("id")));
             }
     
             // tampilkan data
@@ -61,10 +56,25 @@ class Admin extends CI_Controller
             $data["rows"] = $this->ambil_data();
             $this->tampil_manage($data);
         }
-
-        $data["rows"] = $this->db->query('SELECT * FROM admin ORDER BY id ASC')->result();
-        $this->load->view('_partial/admin_head.php');
-        $this->load->view('admin/admin_dashboard.php', $data);
-        $this->load->view('_partial/admin_foot.php');
     }
+    private function ambil_data()
+        {
+            $this->db->select('*');
+            $this->db->order_by('id_administrator', 'DESC');
+            return $this->db->get('administrator')->result();
+        }
+    
+        private function tampil_manage($data)
+        {
+            $this->load->view('_partial/admin_head.php');
+            $this->load->view('admin/operator_manage.php', $data);
+            $this->load->view('_partial/admin_foot.php');
+        }
+    
+        private function tampil_edit($data)
+        {
+            $this->load->view('_partial/admin_head.php');
+            $this->load->view('admin/operator_edit.php', $data);
+            $this->load->view('_partial/admin_foot.php');
+        }
 }
