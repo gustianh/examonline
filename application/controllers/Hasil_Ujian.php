@@ -21,14 +21,14 @@ class Hasil_Ujian extends MY_Controller
 
     public function edit($id)
     {
-        $data["data"] = $this->db->get_where('id_hasil', array('id_hasil' => $id))->row();
+        $data["data"] = $this->db->get_where('hasil_ujian', array('id_hasil' => $id))->row();
         $this->tampil_edit($data);
     }
 
     public function hapus($id)
     {
         // hapus data
-        $this->db->delete('id_hasil', array('id_hasil' => $id));
+        $this->db->delete('hasil_ujian', array('id_hasil' => $id));
 
         // tampilkan data
         $data["message"] = "Data sudah dihapus.";
@@ -61,7 +61,7 @@ class Hasil_Ujian extends MY_Controller
     {
         $this->db->select('*');
         $this->db->order_by('id_hasil', 'DESC');
-        return $this->db->get('id_hasil')->result();
+        return $this->db->get('hasil_ujian')->result();
     }
 
     private function tampil_manage($data)
