@@ -16,12 +16,14 @@ class Kelas extends MY_Controller
 
     public function tambah()
     {
-        $this->tampil_edit(null);
+        $data["data_rombel"] = $this->db->get('rombel')->result();
+        $this->tampil_edit($data);
     }
 
     public function edit($id)
     {
         $data["data"] = $this->db->get_where('kelas', array('id_kelas' => $id))->row();
+        $data["data_rombel"] = $this->db->get('rombel')->result();
         $this->tampil_edit($data);
     }
 
@@ -40,8 +42,8 @@ class Kelas extends MY_Controller
     {
         // buat kueri
         $data = array(
-            "id_rombel" => $this->input->post('id_rombel'),
-            "nama" => $this->input->post('nama')
+            "id_rombel" => $this->input->post('rombel'),
+            "nama" => $this->input->post('kelas'),
         );
         if ($this->input->post('id') == null) {
             // jika tidak ada ID, maka buat data baru
@@ -59,9 +61,12 @@ class Kelas extends MY_Controller
 
     private function ambil_data()
     {
-        $this->db->select('*');
+        $this->db->select('id_kelas, kelas.nama as kls, rombel.nama as rbl');
+        $this->db->from('kelas');
+        $this->db->join('rombel', 'rombel.id_rombel = kelas.id_rombel'); #join
         $this->db->order_by('id_kelas', 'DESC');
-        return $this->db->get('kelas')->result();
+
+        return $this->db->get()->result();
     }
 
     private function tampil_manage($data)
