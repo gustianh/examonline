@@ -18,20 +18,16 @@
 
                 <h4>Informasi Kelas</h4>
                 <div class="form-group row">
-                    <label for="kelas" class="col-sm-2 col-form-label">Nama Kelas</label>
+                    <label for="kelas" class="col-sm-2 col-form-label">Kelas</label>
                     <div class="col-sm-10">
-                        <select class="custom-select" id="nama_kelas" name="nama_kelas">
-                            <?php foreach ($rows as $row) { ?>
-                            <option value="<?php echo $row->id_kelas; ?>"><?php echo $row->nama; ?></option>
-                            <?php } ?>
-                        </select>
+                        <input type="text" class="form-control" id="kelas" name="kelas" value="<?php echo $data->nama ?? ""; ?>">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="kelas" class="col-sm-2 col-form-label">Peminatan ( RomBel )</label>
+                    <label for="rombel" class="col-sm-2 col-form-label">Rombongan Belajar</label>
                     <div class="col-sm-10">
                         <select class="custom-select" id="rombel" name="rombel">
-                            <?php foreach ($rows as $row) { ?>
+                            <?php foreach ($data_rombel as $row) { ?>
                             <option value="<?php echo $row->id_rombel; ?>"><?php echo $row->nama; ?></option>
                             <?php } ?>
                         </select>

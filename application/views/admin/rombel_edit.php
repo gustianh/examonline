@@ -18,13 +18,9 @@
 
                 <h4>Rombongan Belajar</h4>
                 <div class="form-group row">
-                    <label for="kelas" class="col-sm-2 col-form-label">Peminatan</label>
+                    <label for="rombel" class="col-sm-2 col-form-label">Rombongan Belajar</label>
                     <div class="col-sm-10">
-                        <select class="custom-select" id="rombel" name="rombel">
-                            <?php foreach ($rows as $row) { ?>
-                            <option value="<?php echo $row->id_rombel; ?>"><?php echo $row->nama; ?></option>
-                            <?php } ?>
-                        </select>
+                        <input type="text" class="form-control" id="rombel" name="rombel" value="<?php echo $data->nama ?? ""; ?>">
                     </div>
                 </div>
 

@@ -44,8 +44,8 @@
                         <?php foreach ($rows as $row) { ?>
                         <tr>
                             <td><?php echo $row->id_kelas; ?></td>
-                            <td><?php echo $row->id_rombel; ?></td>
-                            <td><?php echo $row->nama; ?></td>
+                            <td><?php echo $row->rbl; ?></td>
+                            <td><?php echo $row->kls; ?></td>
                             <td><a class="btn btn-outline-warning btn-sm"
                                     href="<?php echo site_url('kelas/edit/' . $row->id_kelas); ?>">Edit</a>
                                 <a class="btn btn-outline-danger btn-sm"

@@ -40,8 +40,7 @@ class Rombel extends MY_Controller
     {
         // buat kueri
         $data = array(
-            "id_rombel" => $this->input->post('id_rombel'),
-            "nama" => $this->input->post('nama')
+            "nama" => $this->input->post('rombel') #ini name
         );
         if ($this->input->post('id') == null) {
             // jika tidak ada ID, maka buat data baru

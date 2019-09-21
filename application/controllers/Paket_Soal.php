@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Operator extends MY_Controller
+class Paket_Soal extends MY_Controller
 {
     public function __construct()
     {
@@ -21,14 +21,14 @@ class Operator extends MY_Controller
 
     public function edit($id)
     {
-        $data["data"] = $this->db->get_where('administrator', array('id_administrator' => $id))->row();
+        $data["data"] = $this->db->get_where('paket', array('id_paket' => $id))->row();
         $this->tampil_edit($data);
     }
 
     public function hapus($id)
     {
         // hapus data
-        $this->db->delete('administrator', array('id_administrator' => $id));
+        $this->db->delete('paket', array('id_paket' => $id));
 
         // tampilkan data
         $data["message"] = "Data sudah dihapus.";
@@ -40,15 +40,15 @@ class Operator extends MY_Controller
     {
         // buat kueri
         $data = array(
-            "username" => $this->input->post('username'),
-            "password" => $this->input->post('password')
+            "id_paket" => $this->input->post('id_paket'),
+            "paket" => $this->input->post('paket')
         );
         if ($this->input->post('id') == null) {
             // jika tidak ada ID, maka buat data baru
-            $this->db->insert('administrator', $data);
+            $this->db->insert('paket', $data);
         } else {
             // jika ada ID, berarti edit
-            $this->db->update('administrator', $data, array('id_guru' => $this->input->post("id")));
+            $this->db->update('paket', $data, array('id_paket' => $this->input->post("id")));
         }
 
         // tampilkan data
@@ -60,21 +60,21 @@ class Operator extends MY_Controller
     private function ambil_data()
     {
         $this->db->select('*');
-        $this->db->order_by('id_administrator', 'DESC');
-        return $this->db->get('administrator')->result();
+        $this->db->order_by('id_paket', 'DESC');
+        return $this->db->get('paket')->result();
     }
 
     private function tampil_manage($data)
     {
         $this->load->view('_partial/admin_head.php');
-        $this->load->view('admin/operator_manage.php', $data);
+        $this->load->view('admin/paket_manage.php', $data);
         $this->load->view('_partial/admin_foot.php');
     }
 
     private function tampil_edit($data)
     {
         $this->load->view('_partial/admin_head.php');
-        $this->load->view('admin/operator_edit.php', $data);
+        $this->load->view('admin/paket_edit.php', $data);
         $this->load->view('_partial/admin_foot.php');
     }
 }
