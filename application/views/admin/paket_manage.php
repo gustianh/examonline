@@ -10,7 +10,7 @@
         <div class="card-header py-3">
             <div class="d-flex align-items-center">
                 <h6 class="mr-auto mb-0 font-weight-bold text-primary">Paket</h6>
-                <a class="btn btn-success" href="<?php echo site_url('paket/tambah'); ?>"><i class="fas fa-plus"></i>  Tambah Kelas</a>
+                <a class="btn btn-success" href="<?php echo site_url('paket_soal/tambah'); ?>"><i class="fas fa-plus"></i>  Tambah Kelas</a>
             </div>
         </div>
         <div class="card-body">
@@ -44,9 +44,9 @@
                             <td><?php echo $row->id_paket; ?></td>
                             <td><?php echo $row->paket; ?></td>
                             <td><a class="btn btn-outline-warning btn-sm"
-                                    href="<?php echo site_url('paket/edit/' . $row->id_paket); ?>">Edit</a>
+                                    href="<?php echo site_url('paket_soal/edit/' . $row->id_paket); ?>">Edit</a>
                                 <a class="btn btn-outline-danger btn-sm"
-                                    href="<?php echo site_url('paket/hapus/' . $row->id_paket); ?>">Hapus</a></td>
+                                    href="<?php echo site_url('paket_soal/hapus/' . $row->id_paket); ?>">Hapus</a></td>
                         </tr>
                         <?php } ?>
                     </tbody>

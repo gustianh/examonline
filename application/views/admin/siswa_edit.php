@@ -14,7 +14,7 @@
         </div>
         <div class="card-body">
             <form action="<?php echo site_url('siswa/simpan'); ?>" method="post">
-                <input type="hidden" name="id" value="<?php echo $id ?? ""; ?>">
+                <input type="hidden" name="id" value="<?php echo $data->id_siswa ?? ""; ?>">
 
                 <h4>Informasi Diri</h4>
                 <div class="form-group row">
@@ -50,7 +50,7 @@
                     <label for="kelas" class="col-sm-2 col-form-label">Kelas</label>
                     <div class="col-sm-10">
                         <select class="custom-select" id="kelas" name="kelas">
-                            <?php foreach ($rows as $row) { ?>
+                            <?php foreach ($data_kelas as $row) { ?>
                             <option value="<?php echo $row->id_kelas; ?>"><?php echo $row->nama; ?></option>
                             <?php } ?>
                         </select>
@@ -60,7 +60,7 @@
                     <label for="tahun_masuk" class="col-sm-2 col-form-label">Tahun Masuk</label>
                     <div class="col-sm-10">
                         <input type="number" class="form-control" id="tahun_masuk" name="tahun_masuk"
-                            value="<?php echo $data->tanggal_lahir ?? ""; ?>">
+                            value="<?php echo $data->tahun_masuk ?? ""; ?>">
                     </div>
                 </div>
 

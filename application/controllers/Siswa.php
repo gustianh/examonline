@@ -19,14 +19,14 @@ class Siswa extends CI_Controller
 
     public function tambah()
     {
-        $data["kelas"] = $this->ambil_kelas();
+        $data["data_kelas"] = $this->ambil_kelas();
         $this->tampil_edit($data);
     }
 
     public function edit($id)
     {
         $data["data"] =  $this->db->get_where('siswa', array('id_siswa' => $id))->row();
-        $data["kelas"] = $this->ambil_kelas();
+        $data["data_kelas"] = $this->ambil_kelas();
         $this->tampil_edit($data);
     }
 
@@ -48,7 +48,7 @@ class Siswa extends CI_Controller
             "nama" => $this->input->post('nama'),
             "tanggal_lahir" => $this->input->post('tanggal_lahir'),
             "jenis_kelamin" => $this->input->post('jenis_kelamin'),
-            'kelas' => $this->input->post("kelas"),
+            'id_kelas' => $this->input->post("kelas"),
             'tahun_masuk' => $this->input->post("tahun_masuk"),
             "username" => $this->input->post('username'),
             "password" => $this->input->post('password')
@@ -58,7 +58,7 @@ class Siswa extends CI_Controller
             $this->db->insert('siswa', $data);
         } else {
             // jika ada ID, berarti edit
-            $this->db->update('siswa', $data, array('id_siswa' => $id));
+            $this->db->update('siswa', $data, array('id_siswa' => $this->input->post('id')));
         }
 
         // tampilkan data
@@ -69,9 +69,12 @@ class Siswa extends CI_Controller
 
     private function ambil_data()
     {
-        $this->db->select('*');
+        $this->db->select('id_siswa, tanggal_lahir, tahun_masuk, siswa.nama, kelas.nama As kelas');
+        $this->db->from('siswa');
+        $this->db->join('kelas', 'kelas.id_kelas = siswa.id_kelas'); #join
         $this->db->order_by('id_siswa', 'DESC');
-        return $this->db->get('siswa')->result();
+
+        return $this->db->get()->result();
     }
 
     private function ambil_kelas()

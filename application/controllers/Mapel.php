@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mapel extends MY_Controller
@@ -16,12 +16,14 @@ class Mapel extends MY_Controller
 
     public function tambah()
     {
-        $this->tampil_edit(null);
+        $data["data_rombel"] = $this->db->get('rombel')->result();
+        $this->tampil_edit($data);
     }
 
     public function edit($id)
     {
         $data["data"] = $this->db->get_where('mata_pelajaran', array('id_mata_pelajaran' => $id))->row();
+        $data["data_rombel"] = $this->db->get('rombel')->result();
         $this->tampil_edit($data);
     }
 
@@ -41,7 +43,7 @@ class Mapel extends MY_Controller
         // buat kueri
         $data = array(
             "id_mata_pelajaran" => $this->input->post('id_mata_pelajaran'),
-            "id_rombel" => $this->input->post('id_rombel'),
+            "id_rombel" => $this->input->post('rombel'),
             "kode" => $this->input->post('kode'),
             "nama" => $this->input->post('nama')
         );
@@ -61,9 +63,12 @@ class Mapel extends MY_Controller
 
     private function ambil_data()
     {
-        $this->db->select('*');
+        $this->db->select('id_mata_pelajaran, kode, mata_pelajaran.nama as mapel, rombel.nama as rbl');
+        $this->db->from('mata_pelajaran');
+        $this->db->join('rombel', 'rombel.id_rombel = mata_pelajaran.id_rombel'); #join
         $this->db->order_by('id_mata_pelajaran', 'DESC');
-        return $this->db->get('mata_pelajaran')->result();
+
+        return $this->db->get()->result();
     }
 
     private function tampil_manage($data)

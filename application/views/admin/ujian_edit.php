@@ -13,42 +13,48 @@
             </div>
         </div>
         <div class="card-body">
-            <form action="<?php echo site_url('kelas/simpan'); ?>" method="post">
+            <form action="<?php echo site_url('ujian/simpan'); ?>" method="post">
                 <input type="hidden" name="id" value="<?php echo $data->id_ujian ?? ""; ?>">
 
                 <h4>Ujian</h4>
                 <div class="form-group row">
-                    <label for="id_paket" class="col-sm-2 col-form-label">ID Paket</label>
+                    <label for="id_paket" class="col-sm-2 col-form-label">Paket</label>
                     <div class="col-sm-10">
                         <select class="custom-select" id="id_paket" name="id_paket">
-                            <?php foreach ($rows as $row) { ?>
+                            <?php foreach ($data_paket as $row) { ?>
                             <option value="<?php echo $row->id_paket; ?>"><?php echo $row->paket; ?></option>
                             <?php } ?>
                         </select>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="id_guru" class="col-sm-2 col-form-label">ID Guru</label>
+                    <label for="id_guru" class="col-sm-2 col-form-label">Guru</label>
                     <div class="col-sm-10">
                         <select class="custom-select" id="id_guru" name="id_guru">
-                            <?php foreach ($rows as $row) { ?>
-                            <option value="<?php echo $row->id_guru; ?>"><?php echo $row->guru; ?></option>
+                            <?php foreach ($data_guru as $row) { ?>
+                            <option value="<?php echo $row->id_guru; ?>"><?php echo $row->nama; ?></option>
                             <?php } ?>
                         </select>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="nama" class="col-sm-2 col-form-label">Deskripsi</label>
+                    <label for="deskripsi" class="col-sm-2 col-form-label">Deskripsi</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="deskripsi" name="deskripsi" value="<?php echo $data->deskripsi ?? ""; ?>">
+                        <textarea name="deskripsi" id="editor" class="form-control">
+                            <?php echo $data->deskripsi ?? ""; ?>
+                        </textarea>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="nama" class="col-sm-2 col-form-label">Batas Waktu</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="batas_waktu" name="batas_waktu" value="<?php echo $data->batas_waktu ?? ""; ?>">
+                    <label for="batas_waktu" class="col-sm-2 col-form-label">Batas Waktu</label>
+                    <div class="col-sm-2">
+                        <input type="number" class="form-control" id="batas_waktu" name="batas_waktu" value="<?php echo $data->batas_waktu ?? ""; ?>">
+                    </div>
+                    <div class="col-sm-8 align-self-center">
+                        menit
                     </div>
                 </div>
+
                 <button type="submit" class="btn btn-primary">Simpan</button>
             </form>
         </div>

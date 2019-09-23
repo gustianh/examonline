@@ -29,12 +29,6 @@
                             <th>ID</th>
                             <th>Paket</th>
                             <th>Soal</th>
-                            <th>Jawaban A</th>
-                            <th>Jawaban B</th>
-                            <th>Jawaban C</th>
-                            <th>Jawaban D</th>
-                            <th>Jawaban E</th>
-                            <th>Kunci Jawaban</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -43,12 +37,6 @@
                             <th>ID</th>
                             <th>Paket</th>
                             <th>Soal</th>
-                            <th>Jawaban A</th>
-                            <th>Jawaban B</th>
-                            <th>Jawaban C</th>
-                            <th>Jawaban D</th>
-                            <th>Jawaban E</th>
-                            <th>Kunci Jawaban</th>
                             <th>Aksi</th>
                         </tr>
                     </tfoot>
@@ -56,14 +44,8 @@
                         <?php foreach ($rows as $row) { ?>
                         <tr>
                             <td><?php echo $row->id_soal; ?></td>
-                            <td><?php echo $row->id_paket; ?></td>
+                            <td><?php echo $row->paket; ?></td>
                             <td><?php echo $row->soal; ?></td>
-                            <td><?php echo $row->opsi_a; ?></td>
-                            <td><?php echo $row->opsi_b; ?></td>
-                            <td><?php echo $row->opsi_c; ?></td>
-                            <td><?php echo $row->opsi_d; ?></td>
-                            <td><?php echo $row->opsi_e; ?></td>
-                            <td><?php echo $row->kunci_jawaban; ?></td>
                             <td><a class="btn btn-outline-warning btn-sm"
                                     href="<?php echo site_url('soal/edit/' . $row->id_soal); ?>">Edit</a>
                                 <a class="btn btn-outline-danger btn-sm"

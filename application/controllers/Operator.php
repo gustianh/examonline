@@ -21,14 +21,14 @@ class Operator extends MY_Controller
 
     public function edit($id)
     {
-        $data["data"] = $this->db->get_where('administrator', array('id_administrator' => $id))->row();
+        $data["data"] = $this->db->get_where('operator', array('id_administrator' => $id))->row();
         $this->tampil_edit($data);
     }
 
     public function hapus($id)
     {
         // hapus data
-        $this->db->delete('administrator', array('id_administrator' => $id));
+        $this->db->delete('operator', array('id_administrator' => $id));
 
         // tampilkan data
         $data["message"] = "Data sudah dihapus.";
@@ -45,10 +45,10 @@ class Operator extends MY_Controller
         );
         if ($this->input->post('id') == null) {
             // jika tidak ada ID, maka buat data baru
-            $this->db->insert('administrator', $data);
+            $this->db->insert('operator', $data);
         } else {
             // jika ada ID, berarti edit
-            $this->db->update('administrator', $data, array('id_guru' => $this->input->post("id")));
+            $this->db->update('operator', $data, array('id_guru' => $this->input->post("id")));
         }
 
         // tampilkan data
@@ -61,7 +61,7 @@ class Operator extends MY_Controller
     {
         $this->db->select('*');
         $this->db->order_by('id_administrator', 'DESC');
-        return $this->db->get('administrator')->result();
+        return $this->db->get('operator')->result();
     }
 
     private function tampil_manage($data)

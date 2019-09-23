@@ -27,9 +27,8 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>ID Paket</th>
-                            <th>ID Guru</th>
-                            <th>Deskripsi</th>
+                            <th>Paket</th>
+                            <th>Guru</th>
                             <th>Batas Waktu</th>
                             <th>Aksi</th>
                         </tr>
@@ -37,9 +36,8 @@
                     <tfoot>
                         <tr>
                             <th>ID</th>
-                            <th>ID Paket</th>
-                            <th>ID Guru</th>
-                            <th>Deskripsi</th>
+                            <th>Paket</th>
+                            <th>Guru</th>
                             <th>Batas Waktu</th>
                             <th>Aksi</th>
                         </tr>
@@ -47,9 +45,9 @@
                     <tbody>
                         <?php foreach ($rows as $row) { ?>
                         <tr>
-                            <td><?php echo $row->id_paket; ?></td>
-                            <td><?php echo $row->id_guru; ?></td>
-                            <td><?php echo $row->deskripsi; ?></td>
+                            <td><?php echo $row->id_ujian; ?></td>
+                            <td><?php echo $row->paket_soal; ?></td>
+                            <td><?php echo $row->nama_guru; ?></td>
                             <td><?php echo $row->batas_waktu; ?></td>
                             <td><a class="btn btn-outline-warning btn-sm"
                                     href="<?php echo site_url('ujian/edit/' . $row->id_ujian); ?>">Edit</a>

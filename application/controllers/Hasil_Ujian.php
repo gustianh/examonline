@@ -14,17 +14,6 @@ class Hasil_Ujian extends MY_Controller
         $this->tampil_manage($data);
     }
 
-    public function tambah()
-    {
-        $this->tampil_edit(null);
-    }
-
-    public function edit($id)
-    {
-        $data["data"] = $this->db->get_where('hasil_ujian', array('id_hasil' => $id))->row();
-        $this->tampil_edit($data);
-    }
-
     public function hapus($id)
     {
         // hapus data
@@ -43,25 +32,17 @@ class Hasil_Ujian extends MY_Controller
             "id_siswa" => $this->input->post('id_siswa'),
             "skor" => $this->input->post('skor')
         );
-        if ($this->input->post('id') == null) {
-            // jika tidak ada ID, maka buat data baru
-            $this->db->insert('id_hasil', $data);
-        } else {
-            // jika ada ID, berarti edit
-            $this->db->update('id_hasil', $data, array('id_hasil' => $this->input->post("id")));
-        }
-
-        // tampilkan data
-        $data["message"] = "Data sudah disimpan.";
-        $data["rows"] = $this->ambil_data();
-        $this->tampil_manage($data);
+        $this->db->insert('hasil_ujian', $data);
     }
 
     private function ambil_data()
     {
-        $this->db->select('*');
+        $this->db->select('hasil_ujian.id_hasil, siswa.nama, hasil_ujian.skor');
+        $this->db->from('hasil_ujian');
+        $this->db->join('siswa', 'siswa.id_siswa = hasil_ujian.id_siswa'); #join
         $this->db->order_by('id_hasil', 'DESC');
-        return $this->db->get('hasil_ujian')->result();
+
+        return $this->db->get()->result();
     }
 
     private function tampil_manage($data)

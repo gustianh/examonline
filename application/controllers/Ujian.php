@@ -16,12 +16,16 @@ class Ujian extends MY_Controller
 
     public function tambah()
     {
-        $this->tampil_edit(null);
+        $data["data_paket"] = $this->db->get('paket')->result();
+        $data["data_guru"] = $this->db->get('guru')->result();
+        $this->tampil_edit($data);
     }
 
     public function edit($id)
     {
         $data["data"] = $this->db->get_where('ujian', array('id_ujian' => $id))->row();
+        $data["data_paket"] = $this->db->get('paket')->result();
+        $data["data_guru"] = $this->db->get('guru')->result();
         $this->tampil_edit($data);
     }
 
@@ -61,9 +65,13 @@ class Ujian extends MY_Controller
 
     private function ambil_data()
     {
-        $this->db->select('*');
+        $this->db->select('ujian.id_ujian, paket.paket As paket_soal, guru.nama As nama_guru, ujian.batas_waktu');
+        $this->db->from('guru');
+        $this->db->join('ujian', 'ujian.id_guru = guru.id_guru', 'inner'); #join
+        $this->db->join('paket', 'ujian.id_paket = paket.id_paket', 'inner'); #join
         $this->db->order_by('id_ujian', 'DESC');
-        return $this->db->get('ujian')->result();
+
+        return $this->db->get()->result();
     }
 
     private function tampil_manage($data)
@@ -75,8 +83,9 @@ class Ujian extends MY_Controller
 
     private function tampil_edit($data)
     {
+        $data["use_editor"] = true;
         $this->load->view('_partial/admin_head.php');
         $this->load->view('admin/ujian_edit.php', $data);
-        $this->load->view('_partial/admin_foot.php');
+        $this->load->view('_partial/admin_foot.php', $data);
     }
 }

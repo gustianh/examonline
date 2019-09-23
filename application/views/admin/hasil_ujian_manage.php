@@ -10,7 +10,6 @@
         <div class="card-header py-3">
             <div class="d-flex align-items-center">
                 <h6 class="mr-auto mb-0 font-weight-bold text-primary">Hasil Ujian</h6>
-                <a class="btn btn-success" href="<?php echo site_url('hasil_ujian/tambah'); ?>"><i class="fas fa-plus"></i>  Tambah Hasil Ujian</a>
             </div>
         </div>
         <div class="card-body">
@@ -27,7 +26,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>ID Siswa</th>
+                            <th>Siswa</th>
                             <th>Skor</th>
                             <th>Aksi</th>
                         </tr>
@@ -35,7 +34,7 @@
                     <tfoot>
                         <tr>
                             <th>ID</th>
-                            <th>ID Siswa</th>
+                            <th>Siswa</th>
                             <th>Skor</th>
                             <th>Aksi</th>
                         </tr>
@@ -43,11 +42,10 @@
                     <tbody>
                         <?php foreach ($rows as $row) { ?>
                         <tr>
-                            <td><?php echo $row->id_siswa; ?></td>
+                            <td><?php echo $row->id_hasil; ?></td>
+                            <td><?php echo $row->nama; ?></td>
                             <td><?php echo $row->skor; ?></td>
-                            <td><a class="btn btn-outline-warning btn-sm"
-                                    href="<?php echo site_url('hasil_ujian/edit/' . $row->id_hasil); ?>">Edit</a>
-                                <a class="btn btn-outline-danger btn-sm"
+                            <td><a class="btn btn-outline-danger btn-sm"
                                     href="<?php echo site_url('hasil_ujian/hapus/' . $row->id_hasil); ?>">Hapus</a></td>
                         </tr>
                         <?php } ?>

@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="card-body">
-            <form action="<?php echo site_url('mata_pelajaran/simpan'); ?>" method="post">
+            <form action="<?php echo site_url('mapel/simpan'); ?>" method="post">
                 <input type="hidden" name="id" value="<?php echo $data->id_mata_pelajaran ?? ""; ?>">
 
                 <h4>Mata Pelajaran</h4>
@@ -33,8 +33,8 @@
                     <label for="rombel" class="col-sm-2 col-form-label">Rombongan Belajar</label>
                     <div class="col-sm-10">
                         <select class="custom-select" id="rombel" name="rombel">
-                            <?php foreach ($rows as $row) { ?>
-                            <option value="<?php echo $row->id_kelas; ?>"><?php echo $row->nama; ?></option>
+                            <?php foreach ($data_rombel as $row) { ?>
+                            <option value="<?php echo $row->id_rombel; ?>"><?php echo $row->nama; ?></option>
                             <?php } ?>
                         </select>
                     </div>

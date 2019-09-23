@@ -40,7 +40,6 @@ class Paket_Soal extends MY_Controller
     {
         // buat kueri
         $data = array(
-            "id_paket" => $this->input->post('id_paket'),
             "paket" => $this->input->post('paket')
         );
         if ($this->input->post('id') == null) {

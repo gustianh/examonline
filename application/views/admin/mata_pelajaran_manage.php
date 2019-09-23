@@ -30,6 +30,7 @@
                             <th>Rombel</th>
                             <th>Kode</th>
                             <th>Nama</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -45,13 +46,13 @@
                         <?php foreach ($rows as $row) { ?>
                         <tr>
                             <td><?php echo $row->id_mata_pelajaran; ?></td>
-                            <td><?php echo $row->id_rombel; ?></td>
+                            <td><?php echo $row->rbl; ?></td>
                             <td><?php echo $row->kode; ?></td>
-                            <td><?php echo $row->nama; ?></td>
+                            <td><?php echo $row->mapel; ?></td>
                             <td><a class="btn btn-outline-warning btn-sm"
-                                    href="<?php echo site_url('mata_pelajaran/edit/' . $row->id_mata_pelajaran); ?>">Edit</a>
+                                    href="<?php echo site_url('mapel/edit/' . $row->id_mata_pelajaran); ?>">Edit</a>
                                 <a class="btn btn-outline-danger btn-sm"
-                                    href="<?php echo site_url('mata_pelajaran/hapus/' . $row->id_mata_pelajaran); ?>">Hapus</a></td>
+                                    href="<?php echo site_url('mapel/hapus/' . $row->id_mata_pelajaran); ?>">Hapus</a></td>
                         </tr>
                         <?php } ?>
                     </tbody>

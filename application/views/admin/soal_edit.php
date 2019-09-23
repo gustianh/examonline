@@ -21,17 +21,18 @@
                     <label for="paket" class="col-sm-2 col-form-label">Paket</label>
                     <div class="col-sm-10">
                         <select class="custom-select" id="paket" name="paket">
-                            <?php foreach ($rows as $row) { ?>
+                            <?php foreach ($data_paket as $row) { ?>
                             <option value="<?php echo $row->id_paket; ?>"><?php echo $row->paket; ?></option>
                             <?php } ?>
                         </select>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="soal" class="col-sm-2 col-form-label">Soal</label>
+                    <label for="editor" class="col-sm-2 col-form-label">Soal</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="soal" name="soal"
-                            value="<?php echo $data->soal ?? ""; ?>">
+                        <textarea name="soal" id="editor" class="form-control">
+                            <?php echo $data->soal ?? ""; ?>
+                        </textarea>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -72,8 +73,13 @@
                 <div class="form-group row">
                     <label for="kunci_jawaban" class="col-sm-2 col-form-label">Kunci Jawaban</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="kunci_jawaban" name="kunci_jawaban"
-                            value="<?php echo $data->kunci_jawaban ?? ""; ?>">
+                        <select class="custom-select" id="kunci_jawaban" name="kunci_jawaban">
+                            <option value="A" <?php echo ($data->kunci_jawaban ?? "") == "A" ? "selected" : "" ?>>A</option>
+                            <option value="B" <?php echo ($data->kunci_jawaban ?? "") == "B" ? "selected" : "" ?>>B</option>
+                            <option value="C" <?php echo ($data->kunci_jawaban ?? "") == "C" ? "selected" : "" ?>>C</option>
+                            <option value="D" <?php echo ($data->kunci_jawaban ?? "") == "D" ? "selected" : "" ?>>D</option>
+                            <option value="E" <?php echo ($data->kunci_jawaban ?? "") == "E" ? "selected" : "" ?>>E</option>
+                        </select>
                     </div>
                 </div>
 

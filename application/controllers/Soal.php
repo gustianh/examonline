@@ -16,12 +16,14 @@ class Soal extends MY_Controller
 
     public function tambah()
     {
-        $this->tampil_edit(null);
+        $data["data_paket"] = $this->db->get('paket')->result();
+        $this->tampil_edit($data);
     }
 
     public function edit($id)
     {
         $data["data"] = $this->db->get_where('soal', array('id_soal' => $id))->row();
+        $data["data_paket"] = $this->db->get('paket')->result();
         $this->tampil_edit($data);
     }
 
@@ -40,7 +42,7 @@ class Soal extends MY_Controller
     {
         // buat kueri
         $data = array(
-            "id_paket" => $this->input->post('id_paket'),
+            "id_paket" => $this->input->post('paket'),
             "soal" => $this->input->post('soal'),
             "opsi_a" => $this->input->post('opsi_a'),
             "opsi_b" => $this->input->post('opsi_b'),
@@ -65,9 +67,12 @@ class Soal extends MY_Controller
 
     private function ambil_data()
     {
-        $this->db->select('*');
+        $this->db->select('soal.id_soal, paket.paket, soal.soal');
+        $this->db->from('soal');
+        $this->db->join('paket', 'soal.id_paket = paket.id_paket'); #join
         $this->db->order_by('id_soal', 'DESC');
-        return $this->db->get('soal')->result();
+
+        return $this->db->get()->result();
     }
 
     private function tampil_manage($data)
@@ -79,8 +84,9 @@ class Soal extends MY_Controller
 
     private function tampil_edit($data)
     {
+        $data["use_editor"] = true;
         $this->load->view('_partial/admin_head.php');
         $this->load->view('admin/soal_edit.php', $data);
-        $this->load->view('_partial/admin_foot.php');
+        $this->load->view('_partial/admin_foot.php', $data);
     }
 }

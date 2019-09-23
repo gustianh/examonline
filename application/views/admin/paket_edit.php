@@ -13,21 +13,18 @@
             </div>
         </div>
         <div class="card-body">
-            <form action="<?php echo site_url('paket/simpan'); ?>" method="post">
+            <form action="<?php echo site_url('paket_soal/simpan'); ?>" method="post">
                 <input type="hidden" name="id" value="<?php echo $data->id_paket ?? ""; ?>">
 
                 <h4>Informasi Paket</h4>
                 <div class="form-group row">
                     <label for="paket" class="col-sm-2 col-form-label">Paket</label>
                     <div class="col-sm-10">
-                        <select class="custom-select" id="paket" name="paket">
-                            <?php foreach ($rows as $row) { ?>
-                            <option value="<?php echo $row->id_paket; ?>"><?php echo $row->paket; ?></option>
-                            <?php } ?>
-                        </select>
+                        <input type="text" class="form-control" id="paket" name="paket"
+                            value="<?php echo $data->paket ?? ""; ?>">
                     </div>
                 </div>
-              
+
                 <button type="submit" class="btn btn-primary">Simpan</button>
             </form>
         </div>
