@@ -77,13 +77,15 @@ class Soal extends MY_Controller
 
     private function tampil_manage($data)
     {
-        $this->load->view('_partial/admin_head.php');
+        $data["level"] = $this->session->level;
+        $this->load->view('_partial/admin_head.php',$data);
         $this->load->view('admin/soal_manage.php', $data);
         $this->load->view('_partial/admin_foot.php');
     }
 
     private function tampil_edit($data)
     {
+        $data["level"] = $this->session->level;
         $data["use_editor"] = true;
         $this->load->view('_partial/admin_head.php');
         $this->load->view('admin/soal_edit.php', $data);

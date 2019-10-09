@@ -61,6 +61,7 @@
             </div>
 
             <!-- Manajemen User -->
+            <?php if ($level == '1') { ?>
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePengguna" aria-expanded="true"
                     aria-controls="collapseTwo">
@@ -77,8 +78,10 @@
                     </div>
                 </div>
             </li>
+            <?php } ?>
 
             <!-- Pelajaran -->
+            <?php if ($level == '1' || $level == '2') { ?>
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePelajaran"
                     aria-expanded="true" aria-controls="collapsePelajaran">
@@ -95,8 +98,10 @@
                     </div>
                 </div>
             </li>
+            <?php } ?>
 
             <!-- Soal -->
+            <?php if ($level == '1' || $level == '2') { ?>
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseSoal" aria-expanded="true"
                     aria-controls="collapseSoal">
@@ -111,6 +116,7 @@
                     </div>
                 </div>
             </li>
+            <?php } ?>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -121,6 +127,7 @@
             </div>
 
             <!-- Ujian -->
+            <?php if ($level == '3') { ?>
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseUjian" aria-expanded="true"
                     aria-controls="collapseUjian">
@@ -135,6 +142,7 @@
                     </div>
                 </div>
             </li>
+            <?php } ?>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -179,7 +187,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="<?php echo site_url('login/logout'); ?>">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>

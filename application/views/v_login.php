@@ -1,39 +1,91 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Login</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Produk By Mfikri.com">
-    <meta name="author" content="M Fikri Setiadi">
-    <!-- Bootstrap -->
-    <link href="<?php echo base_url().'assets/css/bootstrap.css'?>" rel="stylesheet">
-  </head>
-  <body>
- 
-    <div class="container">
-        <div class="col-md-4 col-md-offset-4">
-          <form class="form-signin" action="<?php echo base_url().'index.php/login/auth'?>" method="post">
-            <h2 class="form-signin-heading">Please sign in</h2>
-            <?php echo $this->session->flashdata('msg');?>
-            <label for="username" class="sr-only">Username</label>
-            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
-            <label for="password" class="sr-only">Password</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" value="remember-me"> Remember me
-              </label>
-            </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-          </form>
-        </div>
-        </div> <!-- /container -->
- 
- 
-    <!-- jQuery-->
-    <script src="<?php echo base_url().'assets/js/jquery.js'?>"></script>
-    <!-- Bootsrap -->
-    <script src="<?php echo base_url().'assets/js/bootstrap.min.js'?>"></script>
- 
-  </body>
-  </html>
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <title>Sign In</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      display: -ms-flexbox;
+      display: -webkit-box;
+      display: flex;
+      -ms-flex-align: center;
+      -ms-flex-pack: center;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      justify-content: center;
+      padding-top: 40px;
+      padding-bottom: 40px;
+      background-color: #f5f5f5;
+    }
+
+    .form-signin {
+      width: 100%;
+      max-width: 330px;
+      padding: 15px;
+      margin: 0 auto;
+    }
+
+    .form-signin .checkbox {
+      font-weight: 400;
+    }
+
+    .form-signin .form-control {
+      position: relative;
+      box-sizing: border-box;
+      height: auto;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    .form-signin .form-control:focus {
+      z-index: 2;
+    }
+
+    select {
+      height: 3em !important;
+    }
+
+  </style>
+</head>
+
+<body class="text-center">
+  <form class="form-signin" action="<?php echo site_url('login/auth'); ?>" method="post">
+    <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72"
+      height="72">
+
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
+    <label for="username" class="sr-only">Username</label>
+    <input type="text" id="username" name="username" class="form-control" placeholder="username" required autofocus>
+
+    <label for="password" class="sr-only">Password</label>
+    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+
+    <label for="level" class="sr-only">Level</label>
+    <select class=" form-control" id="level" name="level">
+      <option selected value="1">Operator</option>
+      <option value="2">Guru</option>
+      <option value="3">Siswa</option>
+    </select>
+
+    <br>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2019</p>
+  </form>
+</body>
+
+</html>

@@ -86,14 +86,16 @@ class Siswa extends CI_Controller
 
     private function tampil_manage($data)
     {
-        $this->load->view('_partial/admin_head.php');
+        $data["level"] = $this->session->level;
+        $this->load->view('_partial/admin_head.php',$data);
         $this->load->view('admin/siswa_manage.php', $data);
         $this->load->view('_partial/admin_foot.php');
     }
 
     private function tampil_edit($data)
     {
-        $this->load->view('_partial/admin_head.php');
+        $data["level"] = $this->session->level;
+        $this->load->view('_partial/admin_head.php',$data);
         $this->load->view('admin/siswa_edit.php', $data);
         $this->load->view('_partial/admin_foot.php');
     }

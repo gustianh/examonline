@@ -10,7 +10,9 @@ class Dashboard extends MY_Controller
 
     public function index()
     {
-        $this->load->view("_partial/admin_head.php");
+        $data["level"] = $this->session->level;
+
+        $this->load->view("_partial/admin_head.php", $data);
         $this->load->view("admin/dashboard.php");
         $this->load->view("_partial/admin_foot.php");
     }

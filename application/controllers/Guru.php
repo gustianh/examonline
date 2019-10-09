@@ -71,14 +71,18 @@ class Guru extends MY_Controller
 
     private function tampil_manage($data)
     {
-        $this->load->view('_partial/admin_head.php');
+        $data["level"] = $this->session->level;
+
+        $this->load->view('_partial/admin_head.php', $data);
         $this->load->view('admin/guru_manage.php', $data);
         $this->load->view('_partial/admin_foot.php');
     }
 
     private function tampil_edit($data)
     {
-        $this->load->view('_partial/admin_head.php');
+        $data["level"] = $this->session->level;
+
+        $this->load->view('_partial/admin_head.php', $data);
         $this->load->view('admin/guru_edit.php', $data);
         $this->load->view('_partial/admin_foot.php');
     }

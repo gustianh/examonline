@@ -5,11 +5,16 @@ class MY_Controller extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+
+        $page = strtolower($this->uri->segment(1));
+        if ($page != "login" && !$this->is_logged_in())
+        {
+            redirect("login/index");
+        }
     }
 
     public function is_logged_in()
-    {
-        $user = $this->session->userdata('user_data');
-        return isset($user);
+    {        
+        return isset($this->session->username);
     }
 }
