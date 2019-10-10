@@ -127,7 +127,7 @@
             </div>
 
             <!-- Ujian -->
-            <?php if ($level == '3') { ?>
+            <?php if ($level == '1'|| $level == '3') { ?>
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseUjian" aria-expanded="true"
                     aria-controls="collapseUjian">
@@ -139,6 +139,7 @@
                         <h6 class="collapse-header">Ujian:</h6>
                         <a class="collapse-item" href="<?php echo site_url('ujian'); ?>">Ujian</a>
                         <a class="collapse-item" href="<?php echo site_url('hasil_ujian'); ?>">Hasil Ujian</a>
+                        <a class="collapse-item" href="<?php echo site_url('cetak_kartu'); ?>">Cetak Kartu</a>
                     </div>
                 </div>
             </li>

@@ -3,11 +3,11 @@
 
 <!-- Footer -->
 <footer class="sticky-footer bg-white">
-    <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
-        </div>
+  <div class="container my-auto">
+    <div class="copyright text-center my-auto">
+      <span>Copyright &copy; Your Website 2019</span>
     </div>
+  </div>
 </footer>
 <!-- End of Footer -->
 
@@ -19,7 +19,7 @@
 
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
+  <i class="fas fa-angle-up"></i>
 </a>
 
 <!-- Bootstrap core JavaScript-->
@@ -35,29 +35,64 @@
 <?php if (isset($use_editor) && $use_editor) { ?>
 <script src="<?php echo site_url('assets/vendor/ckeditor/ckeditor.js'); ?>"></script>
 <script>
-function MinHeightPlugin(editor) {
-  this.editor = editor;
-}
+  function MinHeightPlugin(editor) {
+    this.editor = editor;
+  }
 
-MinHeightPlugin.prototype.init = function() {
-  this.editor.ui.view.editable.extendTemplate({
-    attributes: {
-      style: {
-        minHeight: '300px'
+  MinHeightPlugin.prototype.init = function () {
+    this.editor.ui.view.editable.extendTemplate({
+      attributes: {
+        style: {
+          minHeight: '300px'
+        }
       }
-    }
-  });
-};
+    });
+  };
 
-ClassicEditor.builtinPlugins.push(MinHeightPlugin);
-ClassicEditor
-    .create( document.querySelector( '#editor' ))
-    .then( editor => {
-        console.log( editor );
-    } )
-    .catch( error => {
-        console.error( error );
-    } );
+  ClassicEditor.builtinPlugins.push(MinHeightPlugin);
+  ClassicEditor
+    .create(document.querySelector('#editor'))
+    .then(editor => {
+      console.log(editor);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+
+</script>
+<?php } ?>
+
+<?php if (isset($use_countdown) && $use_countdown) { ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
+  integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+<script>
+  $(document).ready(function() {
+    $.getJSON('/ujian/batas_waktu/<?php echo $id_ujian; ?>', function (data) {
+        var eventTime = new Date().getMilliseconds() + (data.batas_waktu * 60 *
+        1000); // Timestamp - Sun, 21 Apr 2013 13:00:00 GMT
+        var currentTime = new Date().getMilliseconds(); // Timestamp - Sun, 21 Apr 2013 12:30:00 GMT
+        var diffTime = eventTime - currentTime;
+        var duration = moment.duration(diffTime * 1000, 'milliseconds');
+        var interval = 1000;
+
+        setInterval(function () {
+          duration = moment.duration(duration - interval, 'milliseconds');
+          $('#timer').text("Sisa waktu: " + duration.hours() + ":" + duration.minutes() + ":" + duration.seconds())
+        }, interval);
+    });
+  })
+
+  function getTimeFromMins(mins) {
+    // do not include the first validation check if you want, for example,
+    // getTimeFromMins(1530) to equal getTimeFromMins(90) (i.e. mins rollover)
+    if (mins >= 24 * 60 || mins < 0) {
+      throw new RangeError("Valid input should be greater than or equal to 0 and less than 1440.");
+    }
+    var h = mins / 60 | 0,
+      m = mins % 60 | 0;
+    return moment.utc().hours(h).minutes(m).format("hh:mm A");
+  }
+
 </script>
 <?php } ?>
 

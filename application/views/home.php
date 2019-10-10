@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>NEPAL</title>
+  <title>Homepage</title>
 
   <!-- Font Awesome Icons -->
   <link href="<?php echo site_url('assets/vendor/fontawesome-free/css/all.min.css'); ?>" rel="stylesheet" type="text/css">

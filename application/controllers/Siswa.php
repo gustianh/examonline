@@ -33,7 +33,7 @@ class Siswa extends CI_Controller
     public function hapus($id)
     {
         // hapus data
-        $this->db->delete('siswa', array('id' => $id));
+        $this->db->delete('siswa', array('id_siswa' => $id));
 
         // tampilkan data
         $data["message"] = "Data sudah dihapus.";

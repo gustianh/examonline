@@ -8,10 +8,76 @@ class Ujian extends MY_Controller
         parent::__construct();
     }
 
+    // -- PUBLIC ROUTE
+
     public function index()
     {
-        $data["rows"] = $this->ambil_data();
-        $this->tampil_manage($data);
+        if ($this->session->level == '3')
+        {
+            redirect('ujian/ujian_step1');
+        }
+        else
+        {
+            $data["rows"] = $this->ambil_data();
+            $this->tampil_manage($data);
+        }
+    }
+
+    public function ujian_step1()
+    {
+        $data["level"] = $this->session->level;
+        $data["rows"] = $this->ambil_paket();
+        $this->load->view('_partial/admin_head.php',$data);
+        $this->load->view('ujian/ujian_step1.php', $data);
+        $this->load->view('_partial/admin_foot.php');
+    }
+
+    public function ujian_step2()
+    {
+        $data["level"] = $this->session->level;
+        $data["data"] = $this->db->get_where('ujian', array('id_ujian' => $this->input->post('id_ujian')))->row();
+        $data["id_ujian"] = $this->input->post('id_ujian');
+        $this->load->view('_partial/admin_head.php',$data);
+        $this->load->view('ujian/ujian_step2.php', $data);
+        $this->load->view('_partial/admin_foot.php', $data);
+    }
+
+    public function ujian_step3()
+    {
+        $data["level"] = $this->session->level;
+        $data["rows"] = $this->db->get_where('soal', array('id_paket' => $this->input->post('id_paket')))->result();
+        $data["id_ujian"] = $this->input->post('id_ujian');
+        $data["use_countdown"] = true;
+        $this->load->view('_partial/admin_head.php',$data);
+        $this->load->view('ujian/ujian_step3.php', $data);
+        $this->load->view('_partial/admin_foot.php', $data);
+    }
+
+    public function ujian_selesai()
+    {
+        $ujian = $this->db->get_where('ujian', array('id_ujian' => $this->input->post('id_ujian')))->row();
+
+        $data["level"] = $this->session->level;
+        $data["data"] = $this->db->get_where('soal', array('id_paket' => $ujian->id_paket))->result();
+        $this->load->view('_partial/admin_head.php',$data);
+        $this->load->view('ujian/ujian_step3.php', $data);
+        $this->load->view('_partial/admin_foot.php');
+    }
+
+    // -- PUBLIC API
+
+    public function batas_waktu($id)
+    {
+        $row = $this->db->get_where('ujian', array('id_ujian' => $id))->row();
+        $response = array(
+            "batas_waktu" => (int) $row->batas_waktu
+        );
+        $this->output
+        ->set_status_header(200)
+        ->set_content_type('application/json', 'utf-8')
+        ->set_output(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES))
+        ->_display();
+        exit;
     }
 
     public function tambah()
@@ -74,11 +140,22 @@ class Ujian extends MY_Controller
         return $this->db->get()->result();
     }
 
+    private function ambil_paket()
+    {
+        $this->db->select('ujian.id_ujian, paket.paket As paket_soal, guru.nama As nama_guru');
+        $this->db->from('ujian');
+        $this->db->join('guru', 'ujian.id_guru = guru.id_guru', 'inner'); #join
+        $this->db->join('paket', 'ujian.id_paket = paket.id_paket', 'inner'); #join
+        $this->db->order_by('id_ujian', 'DESC');
+
+        return $this->db->get()->result();
+    }
+
     private function tampil_manage($data)
     {
         $data["level"] = $this->session->level;
         $this->load->view('_partial/admin_head.php',$data);
-        $this->load->view('admin/ujian_manage.php', $data);
+        $this->load->view('ujian/manage.php', $data);
         $this->load->view('_partial/admin_foot.php');
     }
 
@@ -87,7 +164,7 @@ class Ujian extends MY_Controller
         $data["level"] = $this->session->level;
         $data["use_editor"] = true;
         $this->load->view('_partial/admin_head.php',$data);
-        $this->load->view('admin/ujian_edit.php', $data);
+        $this->load->view('ujian/edit.php', $data);
         $this->load->view('_partial/admin_foot.php', $data);
     }
 }
