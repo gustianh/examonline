@@ -37,9 +37,9 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?php echo site_url(); ?>">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-school"></i>
+                    <i class="fas fa-graduation-cap"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SMAN 1 CILEUNGSI <sup></sup></div>
+                <div class="sidebar-brand-text mx-3">SMA NEGERI 1 CILEUNGSI <sup></sup></div>
             </a>
 
             <!-- Divider -->
@@ -65,7 +65,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePengguna" aria-expanded="true"
                     aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
+                    <i class="fas fa-fw fa-users"></i>
                     <span>Pengguna</span>
                 </a>
                 <div id="collapsePengguna" class="collapse" aria-labelledby="headingPengguna"
@@ -85,7 +85,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePelajaran"
                     aria-expanded="true" aria-controls="collapsePelajaran">
-                    <i class="fas fa-fw fa-cog"></i>
+                    <i class="fas fa-fw fa-book-reader"></i>
                     <span>Pelajaran</span>
                 </a>
                 <div id="collapsePelajaran" class="collapse" aria-labelledby="headingPelajaran"
@@ -105,7 +105,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseSoal" aria-expanded="true"
                     aria-controls="collapseSoal">
-                    <i class="fas fa-fw fa-cog"></i>
+                    <i class="fas fa-fw fa-sticky-note"></i>
                     <span>Soal</span>
                 </a>
                 <div id="collapseSoal" class="collapse" aria-labelledby="headingSoal" data-parent="#accordionSidebar">
@@ -131,7 +131,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseUjian" aria-expanded="true"
                     aria-controls="collapseUjian">
-                    <i class="fas fa-fw fa-cog"></i>
+                    <i class="fas fa-fw fa-diagnoses"></i>
                     <span>Ujian</span>
                 </a>
                 <div id="collapseUjian" class="collapse" aria-labelledby="headingUjian" data-parent="#accordionSidebar">

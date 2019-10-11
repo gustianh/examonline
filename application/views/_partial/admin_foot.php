@@ -5,7 +5,7 @@
 <footer class="sticky-footer bg-white">
   <div class="container my-auto">
     <div class="copyright text-center my-auto">
-      <span>Copyright &copy; Your Website 2019</span>
+      <span>Copyright &copy; FGustian Herlambang | UNPAK 2019</span>
     </div>
   </div>
 </footer>
@@ -72,7 +72,7 @@
         1000); // Timestamp - Sun, 21 Apr 2013 13:00:00 GMT
         var currentTime = new Date().getMilliseconds(); // Timestamp - Sun, 21 Apr 2013 12:30:00 GMT
         var diffTime = eventTime - currentTime;
-        var duration = moment.duration(diffTime * 1000, 'milliseconds');
+        var duration = moment.duration(diffTime, 'milliseconds');
         var interval = 1000;
 
         setInterval(function () {
