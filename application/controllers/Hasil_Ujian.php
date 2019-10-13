@@ -11,7 +11,17 @@ class Hasil_Ujian extends MY_Controller
     public function index()
     {
         $data["rows"] = $this->ambil_data();
+        $data["rows_ujian"] = $this->ambil_ujian();
         $this->tampil_manage($data);
+    }
+
+    public function cetak()
+    {
+        $id_ujian = $this->input->post("id_ujian");
+        $data["rows"] = $this->ambil_print($id_ujian);
+        $data["ujian"] = $this->db->get_where('ujian', array('id_ujian' => $id_ujian))->row();
+
+        $this->tampil_print($data);
     }
 
     public function hapus($id)
@@ -37,10 +47,32 @@ class Hasil_Ujian extends MY_Controller
 
     private function ambil_data()
     {
-        $this->db->select('hasil_ujian.id_hasil, siswa.nama, hasil_ujian.skor');
+        $this->db->select('hasil_ujian.id_hasil, siswa.nama, ujian.judul, hasil_ujian.skor');
         $this->db->from('hasil_ujian');
-        $this->db->join('siswa', 'siswa.id_siswa = hasil_ujian.id_siswa'); #join
+        $this->db->join('siswa', 'siswa.id_siswa = hasil_ujian.id_siswa', 'inner'); #join
+        $this->db->join('ujian', 'ujian.id_ujian = hasil_ujian.id_ujian', 'inner'); #join
         $this->db->order_by('id_hasil', 'DESC');
+
+        return $this->db->get()->result();
+    }
+
+    private function ambil_print($id_ujian)
+    {
+        $this->db->select('hasil_ujian.id_hasil, siswa.nama, kelas.nama as kelas, hasil_ujian.skor');
+        $this->db->from('hasil_ujian');
+        $this->db->join('siswa', 'siswa.id_siswa = hasil_ujian.id_siswa', 'inner'); #join
+        $this->db->join('kelas', 'siswa.id_kelas = kelas.id_kelas', 'inner'); #join
+        $this->db->where('hasil_ujian.id_ujian', $id_ujian);
+        $this->db->order_by('id_hasil', 'DESC');
+
+        return $this->db->get()->result();
+    }
+
+    private function ambil_ujian()
+    {
+        $this->db->select('ujian.id_ujian, ujian.judul');
+        $this->db->from('ujian');
+        $this->db->order_by('id_ujian', 'DESC');
 
         return $this->db->get()->result();
     }
@@ -59,5 +91,10 @@ class Hasil_Ujian extends MY_Controller
         $this->load->view('_partial/admin_head.php',$data);
         $this->load->view('admin/hasil_ujian_edit.php', $data);
         $this->load->view('_partial/admin_foot.php');
+    }
+
+    private function tampil_print($data)
+    {
+        $this->load->view('admin/hasil_ujian_print.php', $data);
     }
 }

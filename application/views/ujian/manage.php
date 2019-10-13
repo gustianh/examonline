@@ -28,25 +28,18 @@
                         <tr>
                             <th>ID</th>
                             <th>Paket</th>
+                            <th>Judul</th>
                             <th>Guru</th>
                             <th>Batas Waktu</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>ID</th>
-                            <th>Paket</th>
-                            <th>Guru</th>
-                            <th>Batas Waktu</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         <?php foreach ($rows as $row) { ?>
                         <tr>
                             <td><?php echo $row->id_ujian; ?></td>
                             <td><?php echo $row->paket_soal; ?></td>
+                            <td><?php echo $row->judul; ?></td>
                             <td><?php echo $row->nama_guru; ?></td>
                             <td><?php echo $row->batas_waktu; ?></td>
                             <td><a class="btn btn-outline-warning btn-sm"

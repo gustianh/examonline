@@ -33,7 +33,7 @@
                     </thead>
                     <tfoot>
                         <tr>
-                        <th>ID</th>
+                            <th>ID</th>
                             <th>Paket</th>
                             <th>Aksi</th>
                         </tr>

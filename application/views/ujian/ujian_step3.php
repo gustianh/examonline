@@ -12,6 +12,8 @@
             <p class="lead text-center" id="timer"></p>
             <hr>
             <form action="<?php echo site_url('ujian/ujian_selesai'); ?>" method="post">
+            <input type="hidden" name="id_ujian" value="<?php echo $id_ujian; ?>">
+
                 <?php foreach ($rows as $row) { ?>
                 <div class="form-group">
                     <p><?php echo $row->soal; ?></label>
@@ -52,5 +54,3 @@
         </div>
     </div>
     <div>
-        <!-- Display the countdown timer in an element -->
-        <p id="demo"></p>

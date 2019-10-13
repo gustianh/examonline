@@ -27,6 +27,7 @@ class Ujian extends MY_Controller
     {
         $data["level"] = $this->session->level;
         $data["rows"] = $this->ambil_paket();
+
         $this->load->view('_partial/admin_head.php',$data);
         $this->load->view('ujian/ujian_step1.php', $data);
         $this->load->view('_partial/admin_foot.php');
@@ -37,6 +38,7 @@ class Ujian extends MY_Controller
         $data["level"] = $this->session->level;
         $data["data"] = $this->db->get_where('ujian', array('id_ujian' => $this->input->post('id_ujian')))->row();
         $data["id_ujian"] = $this->input->post('id_ujian');
+
         $this->load->view('_partial/admin_head.php',$data);
         $this->load->view('ujian/ujian_step2.php', $data);
         $this->load->view('_partial/admin_foot.php', $data);
@@ -48,19 +50,47 @@ class Ujian extends MY_Controller
         $data["rows"] = $this->db->get_where('soal', array('id_paket' => $this->input->post('id_paket')))->result();
         $data["id_ujian"] = $this->input->post('id_ujian');
         $data["use_countdown"] = true;
+
         $this->load->view('_partial/admin_head.php',$data);
         $this->load->view('ujian/ujian_step3.php', $data);
         $this->load->view('_partial/admin_foot.php', $data);
     }
 
     public function ujian_selesai()
-    {
-        $ujian = $this->db->get_where('ujian', array('id_ujian' => $this->input->post('id_ujian')))->row();
+    {       
+        $answers = $this->input->post(NULL, TRUE);
+        $total_score = 0;
+        $counter = 0;
+
+        // proses semua jawaban
+        foreach ($answers as $key => $answer) 
+        {
+            if (!starts_with($key, "soal")) continue;
+
+            $id_soal = substr($key, 4);
+            $soal = $this->db->get_where('soal', array('id_soal' => $id_soal))->row();
+            
+            if ($answer == $soal->kunci_jawaban) $total_score++;
+            $counter++;
+        }
+
+        // hitung total skor
+        $total_score = $total_score / $counter * 100;
+        $siswa = $this->db->get_where('siswa', array('username' => $this->session->username))->row();
+
+        // buat kueri
+        $kueri = array(
+            "id_siswa" => $siswa->id_siswa,
+            "id_ujian" => $this->input->post("id_ujian"),
+            "skor" => $total_score,
+            "tanggal" => date("Y-m-d H:i:s")
+        );
+        $this->db->insert('hasil_ujian', $kueri);
 
         $data["level"] = $this->session->level;
-        $data["data"] = $this->db->get_where('soal', array('id_paket' => $ujian->id_paket))->result();
-        $this->load->view('_partial/admin_head.php',$data);
-        $this->load->view('ujian/ujian_step3.php', $data);
+        $data["skor"] = $total_score;
+        $this->load->view('_partial/admin_head.php', $data);
+        $this->load->view('ujian/ujian_step4.php', $data);
         $this->load->view('_partial/admin_foot.php');
     }
 
@@ -131,7 +161,7 @@ class Ujian extends MY_Controller
 
     private function ambil_data()
     {
-        $this->db->select('ujian.id_ujian, paket.paket As paket_soal, guru.nama As nama_guru, ujian.batas_waktu');
+        $this->db->select('ujian.id_ujian, paket.paket As paket_soal, ujian.judul, guru.nama As nama_guru, ujian.batas_waktu');
         $this->db->from('guru');
         $this->db->join('ujian', 'ujian.id_guru = guru.id_guru', 'inner'); #join
         $this->db->join('paket', 'ujian.id_paket = paket.id_paket', 'inner'); #join

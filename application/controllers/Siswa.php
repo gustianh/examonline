@@ -23,6 +23,18 @@ class Siswa extends CI_Controller
         $this->tampil_edit($data);
     }
 
+    public function cetak_kartu()
+    {
+        $this->db->select('siswa.id_siswa, siswa.nama, kelas.nama As kelas');
+        $this->db->from('siswa');
+        $this->db->join('kelas', 'kelas.id_kelas = siswa.id_kelas'); #join
+        $this->db->order_by('id_siswa', 'DESC');
+
+        $q =  $this->db->get()->result();
+        $data["rows"] = array_chunk($q, 9);
+        $this->load->view('admin/siswa_cetak_kartu.php', $data);
+    }
+
     public function edit($id)
     {
         $data["data"] =  $this->db->get_where('siswa', array('id_siswa' => $id))->row();

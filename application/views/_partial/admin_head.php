@@ -139,7 +139,7 @@
                         <h6 class="collapse-header">Ujian:</h6>
                         <a class="collapse-item" href="<?php echo site_url('ujian'); ?>">Ujian</a>
                         <a class="collapse-item" href="<?php echo site_url('hasil_ujian'); ?>">Hasil Ujian</a>
-                        <a class="collapse-item" href="<?php echo site_url('cetak_kartu'); ?>">Cetak Kartu</a>
+                        <a class="collapse-item" href="<?php echo site_url('siswa/cetak_kartu'); ?>">Cetak Kartu</a>
                     </div>
                 </div>
             </li>

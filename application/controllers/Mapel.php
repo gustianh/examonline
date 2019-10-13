@@ -43,7 +43,6 @@ class Mapel extends MY_Controller
         // buat kueri
         $data = array(
             "id_mata_pelajaran" => $this->input->post('id_mata_pelajaran'),
-            "id_rombel" => $this->input->post('rombel'),
             "kode" => $this->input->post('kode'),
             "nama" => $this->input->post('nama')
         );
@@ -63,9 +62,8 @@ class Mapel extends MY_Controller
 
     private function ambil_data()
     {
-        $this->db->select('id_mata_pelajaran, kode, mata_pelajaran.nama as mapel, rombel.nama as rbl');
+        $this->db->select('id_mata_pelajaran, kode, mata_pelajaran.nama as mapel');
         $this->db->from('mata_pelajaran');
-        $this->db->join('rombel', 'rombel.id_rombel = mata_pelajaran.id_rombel'); #join
         $this->db->order_by('id_mata_pelajaran', 'DESC');
 
         return $this->db->get()->result();

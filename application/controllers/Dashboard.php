@@ -6,6 +6,11 @@ class Dashboard extends MY_Controller
     public function __construct()
     {
         parent::__construct();
+
+        if ($this->session->level == 3)
+        {
+            redirect("ujian/index");
+        }
     }
 
     public function index()

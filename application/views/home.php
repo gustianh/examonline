@@ -21,7 +21,7 @@
   <link href="<?php echo site_url('assets/vendor/magnific-popup/magnific-popup.css'); ?>" rel="stylesheet">
 
   <!-- Theme CSS - Includes Bootstrap -->
-  <link href="<?php echo site_url('assets/css/creative.min.css'); ?>" rel="stylesheet">
+  <link href="<?php echo site_url('assets/css/creative.css'); ?>" rel="stylesheet">
 
 </head>
 

@@ -27,7 +27,6 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Rombel</th>
                             <th>Kode</th>
                             <th>Nama</th>
                             <th>Aksi</th>
@@ -36,7 +35,6 @@
                     <tfoot>
                         <tr>
                             <th>ID</th>
-                            <th>Rombel</th>
                             <th>Kode</th>
                             <th>Nama</th>
                             <th>Aksi</th>
@@ -46,7 +44,6 @@
                         <?php foreach ($rows as $row) { ?>
                         <tr>
                             <td><?php echo $row->id_mata_pelajaran; ?></td>
-                            <td><?php echo $row->rbl; ?></td>
                             <td><?php echo $row->kode; ?></td>
                             <td><?php echo $row->mapel; ?></td>
                             <td><a class="btn btn-outline-warning btn-sm"

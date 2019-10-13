@@ -20,7 +20,7 @@
                     <div class="col-sm-10">
                         <select class="custom-select" id="id_ujian" name="id_ujian">
                             <?php foreach ($rows as $row) { ?>
-                            <option value="<?php echo $row->id_ujian; ?>"><?php echo $row->paket_soal; ?> (<?php echo $row->nama_guru; ?>)</option>
+                            <option value="<?php echo $row->id_ujian; ?>"><?php echo $row->judul; ?> (<?php echo $row->nama_guru; ?>)</option>
                             <?php } ?>
                         </select>
                     </div>

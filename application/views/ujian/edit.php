@@ -28,6 +28,13 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="judul" class="col-sm-2 col-form-label">Judul</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="judul" name="judul"
+                            value="<?php echo $data->judul ?? ""; ?>">
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="id_guru" class="col-sm-2 col-form-label">Guru</label>
                     <div class="col-sm-10">
                         <select class="custom-select" id="id_guru" name="id_guru">

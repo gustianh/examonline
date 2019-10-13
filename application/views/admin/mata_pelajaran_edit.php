@@ -29,15 +29,6 @@
                         <input type="text" class="form-control" id="nama" name="nama" value="<?php echo $data->nama ?? ""; ?>">
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label for="rombel" class="col-sm-2 col-form-label">Rombongan Belajar</label>
-                    <div class="col-sm-10">
-                        <select class="custom-select" id="rombel" name="rombel">
-                            <?php foreach ($data_rombel as $row) { ?>
-                            <option value="<?php echo $row->id_rombel; ?>"><?php echo $row->nama; ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
 
                 <button type="submit" class="btn btn-primary">Simpan</button>
             </form>
