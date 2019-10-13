@@ -16,9 +16,13 @@ class Dashboard extends MY_Controller
     public function index()
     {
         $data["level"] = $this->session->level;
+        $data["total_paket"] = $this->db->count_all_results('paket');
+        $data["total_soal"] = $this->db->count_all_results('soal');
+        $data["total_guru"] = $this->db->count_all_results('guru');
+        $data["total_siswa"] = $this->db->count_all_results('siswa');
 
         $this->load->view("_partial/admin_head.php", $data);
-        $this->load->view("admin/dashboard.php");
+        $this->load->view("admin/dashboard.php", $data);
         $this->load->view("_partial/admin_foot.php");
     }
 }
