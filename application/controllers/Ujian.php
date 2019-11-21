@@ -172,7 +172,7 @@ class Ujian extends MY_Controller
 
     private function ambil_paket()
     {
-        $this->db->select('ujian.id_ujian, paket.paket As paket_soal, guru.nama As nama_guru');
+        $this->db->select('ujian.id_ujian, ujian.judul, paket.paket As paket_soal, guru.nama As nama_guru');
         $this->db->from('ujian');
         $this->db->join('guru', 'ujian.id_guru = guru.id_guru', 'inner'); #join
         $this->db->join('paket', 'ujian.id_paket = paket.id_paket', 'inner'); #join
