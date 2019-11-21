@@ -10,7 +10,7 @@
         <div class="card-header py-3">
             <div class="d-flex align-items-center">
                 <h6 class="mr-auto mb-0 font-weight-bold text-primary">Data Soal</h6>
-                <a class="btn btn-success" href="<?php echo site_url('soal/tambah'); ?>"><i class="fas fa-plus"></i>  Tambah Minat</a>
+                <a class="btn btn-success" href="<?php echo site_url('soal/tambah'); ?>"><i class="fas fa-plus"></i> Tambah Soal</a>
             </div>
         </div>
         <div class="card-body">
