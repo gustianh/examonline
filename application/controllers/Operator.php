@@ -68,7 +68,7 @@ class Operator extends MY_Controller
     {
         $data["level"] = $this->session->level;
         $this->load->view('_partial/admin_head.php',$data);
-        $this->load->view('admin/operator_manage.php', $data);
+        $this->load->view('user/operator_manage.php', $data);
         $this->load->view('_partial/admin_foot.php');
     }
 
@@ -76,7 +76,7 @@ class Operator extends MY_Controller
     {
         $data["level"] = $this->session->level;
         $this->load->view('_partial/admin_head.php',$data);
-        $this->load->view('admin/operator_edit.php', $data);
+        $this->load->view('user/operator_edit.php', $data);
         $this->load->view('_partial/admin_foot.php');
     }
 }

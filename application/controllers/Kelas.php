@@ -73,7 +73,7 @@ class Kelas extends MY_Controller
     {
         $data["level"] = $this->session->level;
         $this->load->view('_partial/admin_head.php',$data);
-        $this->load->view('admin/kelas_manage.php', $data);
+        $this->load->view('kelas/kelas_manage.php', $data);
         $this->load->view('_partial/admin_foot.php');
     }
 
@@ -81,7 +81,7 @@ class Kelas extends MY_Controller
     {
         $data["level"] = $this->session->level;
         $this->load->view('_partial/admin_head.php',$data);
-        $this->load->view('admin/kelas_edit.php', $data);
+        $this->load->view('kelas/kelas_edit.php', $data);
         $this->load->view('_partial/admin_foot.php');
     }
 }

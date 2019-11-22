@@ -22,7 +22,7 @@ class Dashboard extends MY_Controller
         $data["total_siswa"] = $this->db->count_all_results('siswa');
 
         $this->load->view("_partial/admin_head.php", $data);
-        $this->load->view("admin/dashboard.php", $data);
+        $this->load->view("dashboard.php", $data);
         $this->load->view("_partial/admin_foot.php");
     }
 }

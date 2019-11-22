@@ -73,7 +73,7 @@ class Mapel extends MY_Controller
     {
         $data["level"] = $this->session->level;
         $this->load->view('_partial/admin_head.php',$data);
-        $this->load->view('admin/mata_pelajaran_manage.php', $data);
+        $this->load->view('kelas/mata_pelajaran_manage.php', $data);
         $this->load->view('_partial/admin_foot.php');
     }
 
@@ -81,7 +81,7 @@ class Mapel extends MY_Controller
     {
         $data["level"] = $this->session->level;
         $this->load->view('_partial/admin_head.php',$data);
-        $this->load->view('admin/mata_pelajaran_edit.php', $data);
+        $this->load->view('kelas/mata_pelajaran_edit.php', $data);
         $this->load->view('_partial/admin_foot.php');
     }
 }

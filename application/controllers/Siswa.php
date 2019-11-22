@@ -32,7 +32,7 @@ class Siswa extends CI_Controller
 
         $q =  $this->db->get()->result();
         $data["rows"] = array_chunk($q, 9);
-        $this->load->view('admin/siswa_cetak_kartu.php', $data);
+        $this->load->view('user/siswa_cetak_kartu.php', $data);
     }
 
     public function edit($id)
@@ -100,7 +100,7 @@ class Siswa extends CI_Controller
     {
         $data["level"] = $this->session->level;
         $this->load->view('_partial/admin_head.php',$data);
-        $this->load->view('admin/siswa_manage.php', $data);
+        $this->load->view('user/siswa_manage.php', $data);
         $this->load->view('_partial/admin_foot.php');
     }
 
@@ -108,7 +108,7 @@ class Siswa extends CI_Controller
     {
         $data["level"] = $this->session->level;
         $this->load->view('_partial/admin_head.php',$data);
-        $this->load->view('admin/siswa_edit.php', $data);
+        $this->load->view('user/siswa_edit.php', $data);
         $this->load->view('_partial/admin_foot.php');
     }
 }

@@ -14,7 +14,7 @@ class Login extends MY_Controller
         }
         else
         {
-            $this->load->view('v_login');
+            $this->load->view('login');
         }
     }
  

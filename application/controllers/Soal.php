@@ -79,7 +79,7 @@ class Soal extends MY_Controller
     {
         $data["level"] = $this->session->level;
         $this->load->view('_partial/admin_head.php',$data);
-        $this->load->view('admin/soal_manage.php', $data);
+        $this->load->view('soal/soal_manage.php', $data);
         $this->load->view('_partial/admin_foot.php');
     }
 
@@ -88,7 +88,7 @@ class Soal extends MY_Controller
         $data["level"] = $this->session->level;
         $data["use_editor"] = true;
         $this->load->view('_partial/admin_head.php',$data);
-        $this->load->view('admin/soal_edit.php', $data);
+        $this->load->view('soal/soal_edit.php', $data);
         $this->load->view('_partial/admin_foot.php', $data);
     }
 }

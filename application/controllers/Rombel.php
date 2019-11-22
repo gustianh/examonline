@@ -67,7 +67,7 @@ class Rombel extends MY_Controller
     {
         $data["level"] = $this->session->level;
         $this->load->view('_partial/admin_head.php',$data);
-        $this->load->view('admin/rombel_manage.php', $data);
+        $this->load->view('kelas/rombel_manage.php', $data);
         $this->load->view('_partial/admin_foot.php');
     }
 
@@ -75,7 +75,7 @@ class Rombel extends MY_Controller
     {
         $data["level"] = $this->session->level;
         $this->load->view('_partial/admin_head.php',$data);
-        $this->load->view('admin/rombel_edit.php', $data);
+        $this->load->view('kelas/rombel_edit.php', $data);
         $this->load->view('_partial/admin_foot.php');
     }
 }
