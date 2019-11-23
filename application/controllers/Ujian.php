@@ -36,7 +36,7 @@ class Ujian extends MY_Controller
     public function ujian_step2()
     {
         $data["level"] = $this->session->level;
-        $data["data"] = $this->db->get_where('ujian', array('id_ujian' => $this->input->post('id_ujian')))->row();
+        $data["data"] = $this->db->order_by('RAND()')->get_where('ujian', array('id_ujian' => $this->input->post('id_ujian')))->row();
         $data["id_ujian"] = $this->input->post('id_ujian');
 
         $this->load->view('_partial/admin_head.php',$data);
