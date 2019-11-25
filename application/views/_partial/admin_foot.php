@@ -1,26 +1,4 @@
-</div>
-<!-- End of Main Content -->
-
-<!-- Footer -->
-<footer class="sticky-footer bg-white">
-  <div class="container my-auto">
-    <div class="copyright text-center my-auto">
-      <span>Copyright &copy; FGustian Herlambang | UNPAK 2019</span>
-    </div>
-  </div>
-</footer>
-<!-- End of Footer -->
-
-</div>
-<!-- End of Content Wrapper -->
-
-</div>
-<!-- End of Page Wrapper -->
-
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-  <i class="fas fa-angle-up"></i>
-</a>
+<?=base64_decode("PC9kaXY+CjwhLS0gRW5kIG9mIE1haW4gQ29udGVudCAtLT4KCjwhLS0gRm9vdGVyIC0tPgo8Zm9vdGVyIGNsYXNzPSJzdGlja3ktZm9vdGVyIGJnLXdoaXRlIj4KICA8ZGl2IGNsYXNzPSJjb250YWluZXIgbXktYXV0byI+CiAgICA8ZGl2IGNsYXNzPSJjb3B5cmlnaHQgdGV4dC1jZW50ZXIgbXktYXV0byI+CiAgICAgIDxzcGFuPkNvcHlyaWdodCAmY29weTsgRkd1c3RpYW4gSGVybGFtYmFuZyB8IFVOUEFLIDIwMTk8L3NwYW4+CiAgICA8L2Rpdj4KICA8L2Rpdj4KPC9mb290ZXI+CjwhLS0gRW5kIG9mIEZvb3RlciAtLT4KCjwvZGl2Pgo8IS0tIEVuZCBvZiBDb250ZW50IFdyYXBwZXIgLS0+Cgo8L2Rpdj4KPCEtLSBFbmQgb2YgUGFnZSBXcmFwcGVyIC0tPgoKPCEtLSBTY3JvbGwgdG8gVG9wIEJ1dHRvbi0tPgo8YSBjbGFzcz0ic2Nyb2xsLXRvLXRvcCByb3VuZGVkIiBocmVmPSIjcGFnZS10b3AiPgogIDxpIGNsYXNzPSJmYXMgZmEtYW5nbGUtdXAiPjwvaT4KPC9hPg==");?>
 
 <!-- Bootstrap core JavaScript-->
 <script src="<?php echo site_url('assets/vendor/jquery/jquery.min.js'); ?>"></script>
@@ -32,72 +10,25 @@
 <script src="<?php echo site_url('assets/vendor/datatables/jquery.dataTables.min.js'); ?>"></script>
 <script src="<?php echo site_url('assets/vendor/datatables/dataTables.bootstrap4.min.js'); ?>"></script>
 
-<?php if (isset($use_editor) && $use_editor) { ?>
-<script src="<?php echo site_url('assets/vendor/ckeditor/ckeditor.js'); ?>"></script>
-<script>
-  function MinHeightPlugin(editor) {
-    this.editor = editor;
-  }
+<?php
+if (isset($load_js)) {
+    foreach ($load_js as $key) {
+        switch ($key) {
+          case 'editor':
+            echo '<script src="' . site_url('assets/vendor/ckeditor/ckeditor.js') . '"></script>';
+            echo '<script src="' . site_url('assets/js/ckeditor.js') . '"></script>';
+            break;
 
-  MinHeightPlugin.prototype.init = function () {
-    this.editor.ui.view.editable.extendTemplate({
-      attributes: {
-        style: {
-          minHeight: '300px'
-        }
+          case 'timer':
+            echo '<script src="' . site_url('assets/vendor/moment/moment.js') . '"></script>';
+            echo '<script src="' . site_url('assets/js/ujian_timer.js') . '"></script>';
+            break;
       }
-    });
-  };
-
-  ClassicEditor.builtinPlugins.push(MinHeightPlugin);
-  ClassicEditor
-    .create(document.querySelector('#editor'))
-    .then(editor => {
-      console.log(editor);
-    })
-    .catch(error => {
-      console.error(error);
-    });
-
-</script>
-<?php } ?>
-
-<?php if (isset($use_countdown) && $use_countdown) { ?>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
-  integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
-<script>
-  $(document).ready(function() {
-    $.getJSON('/ujian/batas_waktu/<?php echo $id_ujian; ?>', function (data) {
-        var eventTime = new Date().getMilliseconds() + (data.batas_waktu * 60 *
-        1000); // Timestamp - Sun, 21 Apr 2013 13:00:00 GMT
-        var currentTime = new Date().getMilliseconds(); // Timestamp - Sun, 21 Apr 2013 12:30:00 GMT
-        var diffTime = eventTime - currentTime;
-        var duration = moment.duration(diffTime, 'milliseconds');
-        var interval = 1000;
-
-        setInterval(function () {
-          duration = moment.duration(duration - interval, 'milliseconds');
-          $('#timer').text("Sisa waktu: " + duration.hours() + ":" + duration.minutes() + ":" + duration.seconds())
-        }, interval);
-    });
-  })
-
-  function getTimeFromMins(mins) {
-    // do not include the first validation check if you want, for example,
-    // getTimeFromMins(1530) to equal getTimeFromMins(90) (i.e. mins rollover)
-    if (mins >= 24 * 60 || mins < 0) {
-      throw new RangeError("Valid input should be greater than or equal to 0 and less than 1440.");
     }
-    var h = mins / 60 | 0,
-      m = mins % 60 | 0;
-    return moment.utc().hours(h).minutes(m).format("hh:mm A");
-  }
-
-</script>
-<?php } ?>
+} ?>
 
 <!-- Custom scripts for all pages-->
-<script src="<?php echo site_url('assets/js/sb-admin-2.min.js'); ?>"></script>
+<script src="<?php echo site_url('assets/js/sb-admin-2.js'); ?>"></script>
 
 </body>
 
