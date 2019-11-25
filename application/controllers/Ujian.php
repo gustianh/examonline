@@ -36,7 +36,7 @@ class Ujian extends MY_Controller
     public function ujian_step2()
     {
         $data["level"] = $this->session->level;
-        $data["data"] = $this->db->order_by('RAND()')->get_where('ujian', array('id_ujian' => $this->input->post('id_ujian')))->row();
+        $data["data"] = $this->db->get_where('ujian', array('id_ujian' => $this->input->post('id_ujian')))->row();
         $data["id_ujian"] = $this->input->post('id_ujian');
 
         $this->load->view('_partial/admin_head.php',$data);
@@ -47,9 +47,9 @@ class Ujian extends MY_Controller
     public function ujian_step3()
     {
         $data["level"] = $this->session->level;
-        $data["rows"] = $this->db->get_where('soal', array('id_paket' => $this->input->post('id_paket')))->result();
+        $data["rows"] = $this->db->order_by('RAND()')->get_where('soal', array('id_paket' => $this->input->post('id_paket')))->result();
         $data["id_ujian"] = $this->input->post('id_ujian');
-        $data["use_countdown"] = true;
+        $data["load_js"] = array("timer");
 
         $this->load->view('_partial/admin_head.php',$data);
         $this->load->view('ujian/ujian_step3.php', $data);
@@ -192,7 +192,7 @@ class Ujian extends MY_Controller
     private function tampil_edit($data)
     {
         $data["level"] = $this->session->level;
-        $data["use_editor"] = true;
+        $data["load_js"] = array("editor");
         $this->load->view('_partial/admin_head.php',$data);
         $this->load->view('ujian/edit.php', $data);
         $this->load->view('_partial/admin_foot.php', $data);

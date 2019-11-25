@@ -11,12 +11,14 @@ class Guru extends MY_Controller
     public function index()
     {
         $data["rows"] = $this->ambil_data();
+        $data["mode"] = "edit";
         $this->tampil_manage($data);
     }
 
     public function tambah()
     {
-        $this->tampil_edit(null);
+        $data["mode"] = "edit";
+        $this->tampil_edit($data);
     }
 
     public function edit($id)

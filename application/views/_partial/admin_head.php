@@ -55,13 +55,13 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
+            <?php if ($level == '1') { ?>
             <!-- Heading -->
             <div class="sidebar-heading">
                 Manajemen
             </div>
 
             <!-- Manajemen User -->
-            <?php if ($level == '1') { ?>
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePengguna" aria-expanded="true"
                     aria-controls="collapseTwo">
@@ -78,10 +78,8 @@
                     </div>
                 </div>
             </li>
-            <?php } ?>
 
             <!-- Pelajaran -->
-            <?php if ($level == '1' || $level == '2') { ?>
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePelajaran"
                     aria-expanded="true" aria-controls="collapsePelajaran">
@@ -98,7 +96,6 @@
                     </div>
                 </div>
             </li>
-            <?php } ?>
 
             <!-- Soal -->
             <?php if ($level == '1' || $level == '2') { ?>
@@ -116,18 +113,18 @@
                     </div>
                 </div>
             </li>
-            <?php } ?>
+            <?php }} ?>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
+            <?php if ($level == '1'|| $level == '2'|| $level == '3') { ?>
             <!-- Heading -->
             <div class="sidebar-heading">
                 Fitur
             </div>
 
             <!-- Ujian -->
-            <?php if ($level == '1'|| $level == '3'|| $level == '2') { ?>
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseUjian" aria-expanded="true"
                     aria-controls="collapseUjian">
@@ -137,9 +134,11 @@
                 <div id="collapseUjian" class="collapse" aria-labelledby="headingUjian" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Ujian:</h6>
-                        <a class="collapse-item" href="<?php echo site_url('ujian'); ?>">Ujian</a>
-                        <a class="collapse-item" href="<?php echo site_url('hasil_ujian'); ?>">Hasil Ujian</a>
-                        <a class="collapse-item" href="<?php echo site_url('siswa/cetak_kartu'); ?>">Cetak Kartu</a>
+                        <a class="collapse-item" href="<?= site_url('ujian'); ?>">Ujian</a>
+                        <?php if ($level == '1'|| $level == '2') { ?>
+                        <a class="collapse-item" href="<?= site_url('hasil_ujian'); ?>">Hasil Ujian</a>
+                        <?php } ?>
+                        <a class="collapse-item" href="<?= site_url('siswa/cetak_kartu'); ?>">Cetak Kartu</a>
                     </div>
                 </div>
             </li>
