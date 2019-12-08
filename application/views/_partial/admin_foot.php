@@ -27,6 +27,8 @@ if (isset($load_js)) {
     }
 } ?>
 
+<?php if (function_exists("footer_block")) footer_block(); ?>
+
 <!-- Custom scripts for all pages-->
 <script src="<?php echo site_url('assets/js/sb-admin-2.js'); ?>"></script>
 

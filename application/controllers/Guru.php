@@ -3,27 +3,35 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Guru extends MY_Controller
 {
+    // Constructor
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('Guru_model');
     }
 
+    // Routes
     public function index()
     {
-        $data["rows"] = $this->ambil_data();
-        $data["mode"] = "edit";
-        $this->tampil_manage($data);
+        $this->tampil_manage(null);
     }
 
     public function tambah()
     {
-        $data["mode"] = "edit";
+        $data["mode"] = "add";
+        $data["data"] = $this->guru_model->empty();
+        $data["data_mapel"] = $this->mapel_model->all();
+        $data["data_mapel_selected"] = $this->mapel_model->top_id();
+        
         $this->tampil_edit($data);
     }
 
     public function edit($id)
     {
-        $data["data"] = $this->db->get_where('guru', array('id_guru' => $id))->row();
+        $data["mode"] = "edit";
+        $data["data"] = $this->guru_model->get($id);
+        $data["data_mapel"] = $this->mapel_model->all();
+
         $this->tampil_edit($data);
     }
 
@@ -34,29 +42,12 @@ class Guru extends MY_Controller
 
         // tampilkan data
         $data["message"] = "Data sudah dihapus.";
-        $data["rows"] = $this->ambil_data();
         $this->tampil_manage($data);
     }
 
     public function simpan()
     {
-        // buat kueri
-        $data = array(
-            "nama" => $this->input->post('nama'),
-            "tanggal_lahir" => $this->input->post('tanggal_lahir'),
-            "jenis_kelamin" => $this->input->post('jenis_kelamin'),
-            "nidn" => $this->input->post('nidn'),
-            "jabatan" => $this->input->post('jabatan'),
-            "username" => $this->input->post('username'),
-            "password" => $this->input->post('password')
-        );
-        if ($this->input->post('id') == null) {
-            // jika tidak ada ID, maka buat data baru
-            $this->db->insert('guru', $data);
-        } else {
-            // jika ada ID, berarti edit
-            $this->db->update('guru', $data, array('id_guru' => $this->input->post("id")));
-        }
+        $this->guru_model->simpan();
 
         // tampilkan data
         $data["message"] = "Data sudah disimpan.";
@@ -64,11 +55,13 @@ class Guru extends MY_Controller
         $this->tampil_manage($data);
     }
 
-    private function ambil_data()
+    // VIEW HELPER
+    public function ajax_data()
     {
-        $this->db->select('*');
-        $this->db->order_by('id_guru', 'DESC');
-        return $this->db->get('guru')->result();
+        return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(200)
+            ->set_output(json_encode($this->Guru_model->populate_table()));
     }
 
     private function tampil_manage($data)

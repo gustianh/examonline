@@ -11,8 +11,8 @@
         <div class="card-body">
             <p class="lead text-center" id="timer"></p>
             <hr>
-            <form action="<?php echo site_url('ujian/ujian_selesai'); ?>" method="post" name="soal">
-            <input type="hidden" name="id_ujian" value="<?php echo $id_ujian; ?>">
+            <form action="<?php echo site_url('ujian/ujian_selesai'); ?>" method="post" id="soal" name="soal">
+            <input type="hidden" id="id_ujian" name="id_ujian" value="<?php echo $id_ujian; ?>">
 
                 <?php foreach ($rows as $row) { ?>
                 <div class="form-group">

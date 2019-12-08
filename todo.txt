@@ -1,0 +1,29 @@
+>data
+id_guru
+nip
+nama
+jenis_kelamin
+username
+password
+
+>data_mapel
+id => mapel
+
+>data_mapel_selected = id
+
+
+-- MODEL CONTRACT
+empty()
+empty value for form (not db schema)
+
+all()
+return all rows from db
+
+top_id()
+return top id
+
+populate_table()
+return DataTable JS columns
+
+get($id)
+get single row for 

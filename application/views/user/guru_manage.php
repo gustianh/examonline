@@ -23,42 +23,58 @@
             </div>
             <?php } ?>
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="table-siswa" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>NIP</th>
                             <th>Nama Lengkap</th>
-                            <th>Username</th>
-                            <th>Jabatan</th>
+                            <th>Mapel</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
+                    <tbody>
+                    </tbody>
                     <tfoot>
                         <tr>
-                            <th>ID</th>
+                            <th>NIP</th>
                             <th>Nama Lengkap</th>
-                            <th>Username</th>
-                            <th>Jabatan</th>
+                            <th>Mapel</th>
                             <th>Aksi</th>
                         </tr>
                     </tfoot>
-                    <tbody>
-                        <?php foreach ($rows as $row) { ?>
-                        <tr>
-                            <td><?php echo $row->id_guru; ?></td>
-                            <td><?php echo $row->nama; ?></td>
-                            <td><?php echo $row->username; ?></td>
-                            <td><?php echo $row->jabatan; ?></td>
-                            <td><a class="btn btn-outline-warning btn-sm"
-                                    href="<?php echo site_url('guru/edit/' . $row->id_guru); ?>">Edit</a>
-                                <a class="btn btn-outline-danger btn-sm"
-                                    href="<?php echo site_url('guru/hapus/' . $row->id_guru); ?>">Hapus</a></td>
-                        </tr>
-                        <?php } ?>
-                    </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
 <!-- End Page Content -->
+
+<?php function footer_block() {?>
+<script type="text/javascript">
+    $(document).ready(function() {
+        let tabel = $('#table-siswa').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ordering": true,
+            "order": [[ 0, 'asc' ]],
+            "ajax":
+            {
+                "url": "<?php echo base_url('guru/ajax_data') ?>",
+                "type": "POST"
+            },
+            "deferRender": true,
+            "columns": [
+                { "data": "nip" },
+                { "data": "nama" },
+                { "data": "mapel" },
+                { "render": function ( data, type, row ) { // Tampilkan kolom aksi
+                        var html = '<a class="btn btn-outline-warning btn-sm" href="<?=site_url('guru/edit/');?>' + row.id_guru + '">Edit</a>  '
+                        html += '<a class="btn btn-outline-danger btn-sm" href="<?=site_url('guru/hapus/');?>' + row.id_guru + '">Hapus</a>'
+                        return html;
+                    }
+                },
+            ],
+        });
+    });
+ </script>
+<?php } ?>
