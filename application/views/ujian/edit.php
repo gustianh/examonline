@@ -68,3 +68,8 @@
     </div>
 </div>
 <!-- End Page Content -->
+
+<?php function footer_block() { ?>
+    <script src="<?=site_url('assets/vendor/ckeditor/ckeditor.js');?>"></script>
+    <script src="<?=site_url('assets/js/ckeditor.js');?>"></script>
+<?php } ?>

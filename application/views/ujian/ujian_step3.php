@@ -53,4 +53,9 @@
             </form>
         </div>
     </div>
-    <div>
+<div>
+
+<?php function footer_block() { ?>
+    <script src="<?=site_url('assets/vendor/moment/moment.js');?>"></script>
+    <script src="<?=site_url('assets/js/ujian_timer.js');?>"></script>
+<?php } ?>

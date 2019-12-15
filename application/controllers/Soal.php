@@ -86,7 +86,6 @@ class Soal extends MY_Controller
     private function tampil_edit($data)
     {
         $data["level"] = $this->session->level;
-        $data["load_js"] = array("editor");
         $this->load->view('_partial/admin_head.php',$data);
         $this->load->view('soal/soal_edit.php', $data);
         $this->load->view('_partial/admin_foot.php', $data);

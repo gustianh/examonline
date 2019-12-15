@@ -10,22 +10,7 @@
 <script src="<?php echo site_url('assets/vendor/datatables/jquery.dataTables.min.js'); ?>"></script>
 <script src="<?php echo site_url('assets/vendor/datatables/dataTables.bootstrap4.min.js'); ?>"></script>
 
-<?php
-if (isset($load_js)) {
-    foreach ($load_js as $key) {
-        switch ($key) {
-          case 'editor':
-            echo '<script src="' . site_url('assets/vendor/ckeditor/ckeditor.js') . '"></script>';
-            echo '<script src="' . site_url('assets/js/ckeditor.js') . '"></script>';
-            break;
-
-          case 'timer':
-            echo '<script src="' . site_url('assets/vendor/moment/moment.js') . '"></script>';
-            echo '<script src="' . site_url('assets/js/ujian_timer.js') . '"></script>';
-            break;
-      }
-    }
-} ?>
+<?php if (function_exists("footer_block")) footer_block(); ?>
 
 <!-- Custom scripts for all pages-->
 <script src="<?php echo site_url('assets/js/sb-admin-2.js'); ?>"></script>
