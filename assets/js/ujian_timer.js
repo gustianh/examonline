@@ -10,12 +10,12 @@ function getTimeFromMins(mins) {
 }
 
 $(document).ready(function () {
-    $.getJSON('/ujian/batas_waktu/' + $("id_ujian").val(), function (data) {
+    $.getJSON('/ujian/batas_waktu/' + $("#id_ujian").val(), function (data) {
         const eventTime = new Date().getMilliseconds() + (data.batas_waktu * 60 * 1000); 
         const currentTime = new Date().getMilliseconds(); 
         const diffTime = eventTime - currentTime;
-        const duration = moment.duration(diffTime, 'milliseconds');
         const interval = 1000;
+        let duration = moment.duration(diffTime, 'milliseconds');
 
         let timer = setInterval(function () {
             duration = moment.duration(duration - interval, 'milliseconds');
@@ -24,7 +24,7 @@ $(document).ready(function () {
             if (duration.asSeconds() == 0)
             {
                 clearInterval(timer);
-                $("soal").submit();
+                $("#soal").submit();
             }
         }, interval);
     });

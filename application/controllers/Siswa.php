@@ -18,7 +18,21 @@ class Siswa extends CI_Controller
     
     public function cetak_kartu()
     {
-        $this->tampil_cetak_kartu();
+        if ($this->session->level == '3')
+        {
+            $this->db->select('siswa.id_siswa, siswa.nama, kelas.nama As nama_kelas');
+            $this->db->join('kelas', 'kelas.id_kelas = siswa.id_kelas'); #join
+            $this->db->where('siswa.id_siswa', $this->session->id_siswa);
+            $this->db->order_by('id_siswa', 'DESC');
+
+            $q =  $this->db->get("siswa")->result();
+            $data["rows"] = array_chunk($q, 9);
+            $this->load->view('user/siswa_cetak_kartu.php', $data);
+        }
+        else
+        {
+            $this->tampil_cetak_kartu();
+        }
     }
 
     public function cetak_kartu_do()
@@ -31,6 +45,19 @@ class Siswa extends CI_Controller
         $q =  $this->db->get("siswa")->result();
         $data["rows"] = array_chunk($q, 9);
         $this->load->view('user/siswa_cetak_kartu.php', $data);
+    }
+
+    public function cetak_siswa()
+    {
+        $kelas = $this->input->post('id_kelas');
+        $this->db->select('siswa.id_siswa, siswa.nis, siswa.nama');
+        $this->db->join('kelas', 'kelas.id_kelas = siswa.id_kelas'); #join
+        $this->db->where('kelas.id_kelas', $kelas);
+        $this->db->order_by('siswa.nama', 'ASC');
+
+        $data["rows"] = $this->db->get("siswa")->result();
+        $data["kelas"] = $this->db->get_where("kelas", array("id_kelas" => $kelas))->row();
+        $this->load->view('user/siswa_cetak.php', $data);
     }
 
     public function tambah()
@@ -172,7 +199,8 @@ class Siswa extends CI_Controller
     private function tampil_manage()
     {
         $data["level"] = $this->session->level;
-        $data["angkatan"] = $this->ambil_angkatan();
+        $data["data_angkatan"] = $this->ambil_angkatan();
+        $data["data_kelas"] = $this->ambil_kelas();
         $this->load->view('_partial/admin_head.php',$data);
         $this->load->view('user/siswa_manage.php', $data);
         $this->load->view('_partial/admin_foot.php');

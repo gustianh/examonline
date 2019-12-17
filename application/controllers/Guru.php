@@ -15,6 +15,14 @@ class Guru extends MY_Controller
         $this->tampil_manage(null);
     }
 
+    public function cetak()
+    {
+        $this->db->select('guru.id_guru, guru.nidn, guru.nama, mata_pelajaran.nama AS mapel'); 
+        $this->db->join('mata_pelajaran', 'mata_pelajaran.id_mata_pelajaran = guru.id_mata_pelajaran');
+        $data["rows"] = $this->db->get('guru')->result();
+        $this->load->view('user/guru_cetak.php', $data);
+    }
+
     public function tambah()
     {
         $data["mode"] = "tambah";

@@ -43,7 +43,7 @@ class Hasil_Ujian extends MY_Controller
         $this->db->join('siswa', 'siswa.id_siswa = hasil_ujian.id_siswa', 'inner'); #join
         $this->db->join('kelas', 'siswa.id_kelas = kelas.id_kelas', 'inner'); #join
         $this->db->where('hasil_ujian.id_ujian', $id_ujian);
-        $this->db->where('hasil_ujian.id_kelas', $id_kelas);
+        $this->db->where('kelas.id_kelas', $id_kelas);
         $this->db->order_by('id_hasil', 'DESC');
 
         return $this->db->get('hasil_ujian')->result();

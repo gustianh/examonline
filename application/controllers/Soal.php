@@ -42,7 +42,6 @@ class Soal extends MY_Controller
         // buat kueri
         $data = array(
             "id_paket" => $this->input->post('paket'),
-            "id_guru" => $this->input->post('id_guru'),
             "id_mata_pelajaran" => $this->input->post('id_mata_pelajaran'),
             "soal" => $this->input->post('soal'),
             "opsi_a" => $this->input->post('opsi_a'),

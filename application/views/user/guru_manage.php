@@ -10,7 +10,8 @@
         <div class="card-header py-3">
             <div class="d-flex align-items-center">
                 <h6 class="mr-auto mb-0 font-weight-bold text-primary">Data Guru</h6>
-                <a class="btn btn-success" href="<?php echo site_url('guru/tambah'); ?>"><i class="fas fa-plus"></i>  Tambah Guru</a>
+                <a class="btn btn-success" href="<?php echo site_url('guru/tambah'); ?>"><i class="fas fa-plus"></i>  Tambah Guru</a>&nbsp;
+                <a class="btn btn-success text-white" href="<?php echo site_url('guru/cetak'); ?>"><i class="fas fa-print"></i>  Cetak</a>
             </div>
         </div>
         <div class="card-body">
