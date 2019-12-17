@@ -79,7 +79,7 @@
                         </tr>
                         <tr>
                             <td>Kelas:</td>
-                            <td><?php echo $entry->kelas; ?></td>
+                            <td><?php echo $entry->nama_kelas; ?></td>
                         </tr>
                     </tbody>
                 </table>

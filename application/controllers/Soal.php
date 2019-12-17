@@ -10,31 +10,30 @@ class Soal extends MY_Controller
 
     public function index()
     {
-        $data["rows"] = $this->ambil_data();
-        $this->tampil_manage($data);
+        $this->tampil_manage(null);
     }
 
     public function tambah()
     {
+        $data["mode"] = "tambah";
         $data["data_paket"] = $this->db->get('paket')->result();
+        $data["data_mapel"] = $this->db->get('mata_pelajaran')->result();
         $this->tampil_edit($data);
     }
 
     public function edit($id)
     {
+        $data["mode"] = "edit";
         $data["data"] = $this->db->get_where('soal', array('id_soal' => $id))->row();
         $data["data_paket"] = $this->db->get('paket')->result();
+        $data["data_mapel"] = $this->db->get('mata_pelajaran')->result();
         $this->tampil_edit($data);
     }
 
     public function hapus($id)
     {
-        // hapus data
         $this->db->delete('soal', array('id_soal' => $id));
-
-        // tampilkan data
         $data["message"] = "Data sudah dihapus.";
-        $data["rows"] = $this->ambil_data();
         $this->tampil_manage($data);
     }
 
@@ -43,6 +42,8 @@ class Soal extends MY_Controller
         // buat kueri
         $data = array(
             "id_paket" => $this->input->post('paket'),
+            "id_guru" => $this->input->post('id_guru'),
+            "id_mata_pelajaran" => $this->input->post('id_mata_pelajaran'),
             "soal" => $this->input->post('soal'),
             "opsi_a" => $this->input->post('opsi_a'),
             "opsi_b" => $this->input->post('opsi_b'),
@@ -61,19 +62,62 @@ class Soal extends MY_Controller
 
         // tampilkan data
         $data["message"] = "Data sudah disimpan.";
-        $data["rows"] = $this->ambil_data();
         $this->tampil_manage($data);
     }
 
-    private function ambil_data()
+    public function populate_table()
     {
-        $this->db->select('soal.id_soal, paket.paket, soal.soal');
-        $this->db->from('soal');
-        $this->db->join('paket', 'soal.id_paket = paket.id_paket'); #join
-        $this->db->order_by('id_soal', 'DESC');
-
-        return $this->db->get()->result();
+        $search = $_POST['search']['value'];
+        $limit = $_POST['length']; 
+        $start = $_POST['start']; 
+        $order_index = $_POST['order'][0]['column']; 
+        $order_field = $_POST['columns'][$order_index]['data']; 
+        $order_ascdesc = $_POST['order'][0]['dir'];
+        
+        $data = array(
+            'draw' => $_POST['draw'] + 1,
+            'recordsTotal' => $this->count_all(),
+            'recordsFiltered' => $this->count_filter($search),
+            'data' => $this->filter($search, $limit, $start, $order_field, $order_ascdesc)
+        );
+        return $this->output
+        ->set_content_type('application/json')
+        ->set_status_header(200)
+        ->set_output(json_encode($data));
     }
+
+    // ----- Data Access
+
+    private function filter($search, $limit, $start, $order_field, $order_ascdesc)
+    {
+        $this->db->select('soal.id_soal, mata_pelajaran.nama as mapel, paket.paket, SUBSTRING(soal.soal, 1, 20) as soal');
+        $this->db->join('mata_pelajaran', 'mata_pelajaran.id_mata_pelajaran = soal.id_mata_pelajaran');
+        $this->db->join('paket', 'soal.id_paket = paket.id_paket');
+        $this->db->like('paket.paket', $search); 
+        $this->db->or_like('mata_pelajaran.nama', $search); 
+        $this->db->order_by($order_field, $order_ascdesc); 
+        $this->db->limit($limit, $start); 
+
+        return $this->db->get('soal')->result_array();
+    }
+
+    private function count_all()
+    {
+        return $this->db->count_all('soal');
+    }
+
+    private function count_filter($search)
+    {
+        $this->db->select('soal.id_soal, mata_pelajaran.nama, paket.paket');
+        $this->db->join('mata_pelajaran', 'mata_pelajaran.id_mata_pelajaran = soal.id_mata_pelajaran');
+        $this->db->join('paket', 'soal.id_paket = paket.id_paket');
+        $this->db->like('paket.paket', $search); 
+        $this->db->or_like('mata_pelajaran.nama', $search); 
+
+        return $this->db->get('soal')->num_rows();
+    }
+    
+    // ----- View Helpers 
 
     private function tampil_manage($data)
     {

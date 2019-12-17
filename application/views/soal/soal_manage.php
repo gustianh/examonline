@@ -23,39 +23,63 @@
             </div>
             <?php } ?>
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="table" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>Mapel</th>
                             <th>Paket</th>
                             <th>Soal</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
+                    <tbody>
+                    </tbody>
                     <tfoot>
                         <tr>
                             <th>ID</th>
+                            <th>Mapel</th>
                             <th>Paket</th>
                             <th>Soal</th>
                             <th>Aksi</th>
                         </tr>
                     </tfoot>
-                    <tbody>
-                        <?php foreach ($rows as $row) { ?>
-                        <tr>
-                            <td><?php echo $row->id_soal; ?></td>
-                            <td><?php echo $row->paket; ?></td>
-                            <td><?php echo $row->soal; ?></td>
-                            <td><a class="btn btn-outline-warning btn-sm"
-                                    href="<?php echo site_url('soal/edit/' . $row->id_soal); ?>">Edit</a>
-                                <a class="btn btn-outline-danger btn-sm"
-                                    href="<?php echo site_url('soal/hapus/' . $row->id_soal); ?>">Hapus</a></td>
-                        </tr>
-                        <?php } ?>
-                    </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
 <!-- End Page Content -->
+
+<?php function footer_block() { ?>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var tabel = $('#table').DataTable({
+                "autoWidth": false,
+                "processing": true,
+                "serverSide": true,
+                "ordering": true,
+                "order": [[0, 'asc']],
+                "ajax":
+                {
+                    "url": '<?=site_url('soal/populate_table');?>',
+                    "type": "POST"
+                },
+                "deferRender": true,
+                "columns": [
+                    { "data": "id_soal" },
+                    { "data": "mapel" },
+                    { "data": "paket" },
+                    { "data": "soal" },
+                    {
+                        "render": function (data, type, row) {
+                            var html = '<a class="btn btn-outline-warning btn-sm" href="<?=site_url('soal/edit');?>/' + row.id_soal + '">Edit</a>  '
+                            html += '<a class="btn btn-outline-danger btn-sm" href="<?=site_url('soal/hapus');?>/' + row.id_soal + '">Hapus</a>'
+                            return html;
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+<?php } ?>

@@ -62,7 +62,7 @@
 </head>
 
 <body class="text-center">
-  <form class="form-signin" action="<?php echo site_url('login/auth'); ?>" method="post">
+  <form class="form-signin" action="<?=site_url('login/auth'); ?>" method="post">
     <img class="mb-4" src="assets/img/nepal.jpg" alt="" width="72"
       height="72">
 
@@ -83,6 +83,9 @@
 
     <br>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <br>
+    <div class="text-center">
+    <a href="<?=site_url('login/register'); ?>">Daftar Akun Baru</a></div>
     <p class="mt-5 mb-3 text-muted">&copy; 2019</p>
   </form>
 </body>

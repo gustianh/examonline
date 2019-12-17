@@ -1,22 +1,24 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
-<!-- Begin Page Content -->
-<div class="container-fluid">
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Data Guru</h1>
-    <p class="mb-4">Tambah/edit administrasi guru.</p>
-
-    <!-- Form -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <div class="d-flex align-items-center">
-                <h6 class="m-0 font-weight-bold text-primary">Data Guru</h6>
-            </div>
-        </div>
-        <div class="card-body">
-            <form action="<?php echo site_url('guru/simpan'); ?>" method="post">
-                <input type="hidden" name="id" value="<?php echo $data->id_guru ?? ""; ?>">
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registrasi Siswa</title>
+    <link rel="stylesheet" href="<?=site_url('assets/vendor/twitter-bootstrap/css/bootstrap.min.css'); ?>">
+</head>
+<body>
+        <div class="container">
+        <br><br>
+        <form action="<?php echo site_url('login/register_do'); ?>" method="post">
                 <h4>Informasi Diri</h4>
+                <div class="form-group row">
+                    <label for="nis" class="col-sm-2 col-form-label">NIS</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="nis" name="nis"
+                            value="<?php echo $data->nis ?? ""; ?>">
+                    </div>
+                </div>
                 <div class="form-group row">
                     <label for="nama" class="col-sm-2 col-form-label">Nama Lengkap</label>
                     <div class="col-sm-10">
@@ -47,20 +49,20 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="nidn" class="col-sm-2 col-form-label">NIDN</label>
+                    <label for="kelas" class="col-sm-2 col-form-label">Kelas</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="nidn" name="nidn"
-                            value="<?php echo $data->nidn ?? ""; ?>">
+                        <select class="custom-select" id="kelas" name="kelas">
+                            <?php foreach ($data_kelas as $row) { ?>
+                            <option value="<?php echo $row->id_kelas; ?>"><?php echo $row->nama; ?></option>
+                            <?php } ?>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="jabatan" class="col-sm-2 col-form-label">Mata Pelajaran</label>
+                    <label for="tahun_masuk" class="col-sm-2 col-form-label">Tahun Masuk</label>
                     <div class="col-sm-10">
-                        <select class="custom-select" id="id_mata_pelajaran" name="id_mata_pelajaran" <?php echo $mode == 'edit' ? 'disabled' : '';?>>
-                            <?php foreach ($data_mapel as $row) { ?>
-                            <option value="<?php echo $row->id_mata_pelajaran; ?>"><?php echo $row->nama; ?></option>
-                            <?php } ?>
-                        </select>
+                        <input type="number" class="form-control" id="tahun_masuk" name="tahun_masuk"
+                            value="<?php echo $data->tahun_masuk ?? ""; ?>">
                     </div>
                 </div>
 
@@ -80,9 +82,9 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="submit" class="btn btn-primary">Daftar</button>
             </form>
+            <br><br>
         </div>
-    </div>
-</div>
-<!-- End Page Content -->
+</body>
+</html>

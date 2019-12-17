@@ -28,6 +28,16 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="id_mata_pelajaran" class="col-sm-2 col-form-label">Mata Pelajaran</label>
+                    <div class="col-sm-10">
+                        <select class="custom-select" id="id_mata_pelajaran" name="id_mata_pelajaran" <?php echo $mode == 'edit' ? 'disabled' : '';?>>
+                            <?php foreach ($data_mapel as $row) { ?>
+                            <option value="<?php echo $row->id_mata_pelajaran; ?>"><?php echo $row->nama; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="editor" class="col-sm-2 col-form-label">Soal</label>
                     <div class="col-sm-10">
                         <textarea name="soal" id="editor" class="form-control">

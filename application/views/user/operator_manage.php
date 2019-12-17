@@ -24,7 +24,7 @@
             </div>
             <?php } ?>
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="table" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -34,21 +34,50 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($rows as $row) { ?>
-                        <tr>
-                            <td><?php echo $row->id_administrator; ?></td>
-                            <td><?php echo $row->username; ?></td>
-                            <td><?php echo $row->password; ?></td>
-                            <td><a class="btn btn-outline-warning btn-sm"
-                                    href="<?php echo site_url('operator/edit/' . $row->id_administrator); ?>">Edit</a>
-                                <a class="btn btn-outline-danger btn-sm"
-                                    href="<?php echo site_url('operator/hapus/' . $row->id_administrator); ?>">Hapus</a></td>
-                        </tr>
-                        <?php } ?>
                     </tbody>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
                 </table>
             </div>
         </div>
     </div>
 </div>
 <!-- End Page Content -->
+
+<?php function footer_block() { ?>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var tabel = $('#table').DataTable({
+                "autoWidth": false,
+                "processing": true,
+                "serverSide": true,
+                "ordering": true,
+                "order": [[0, 'asc']],
+                "ajax":
+                {
+                    "url": '<?=site_url('operator/populate_table');?>',
+                    "type": "POST"
+                },
+                "deferRender": true,
+                "columns": [
+                    { "data": "id_administrator" },
+                    { "data": "username" },
+                    { "data": "password" },
+                    {
+                        "render": function (data, type, row) {
+                            var html = '<a class="btn btn-outline-warning btn-sm" href="<?=site_url('operator/edit');?>/' + row.id_administrator + '">Edit</a>  '
+                            html += '<a class="btn btn-outline-danger btn-sm" href="<?=site_url('operator/hapus');?>/' + row.id_administrator + '">Hapus</a>'
+                            return html;
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+<?php } ?>

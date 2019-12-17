@@ -8,7 +8,7 @@ class Ujian extends MY_Controller
         parent::__construct();
     }
 
-    // -- PUBLIC ROUTE
+    // ----- Routes
 
     public function index()
     {
@@ -18,8 +18,7 @@ class Ujian extends MY_Controller
         }
         else
         {
-            $data["rows"] = $this->ambil_data();
-            $this->tampil_manage($data);
+            $this->tampil_manage(null);
         }
     }
 
@@ -93,7 +92,7 @@ class Ujian extends MY_Controller
         $this->load->view('_partial/admin_foot.php');
     }
 
-    // -- PUBLIC API
+    // ----- Routes - API
 
     public function batas_waktu($id)
     {
@@ -131,7 +130,6 @@ class Ujian extends MY_Controller
 
         // tampilkan data
         $data["message"] = "Data sudah dihapus.";
-        $data["rows"] = $this->ambil_data();
         $this->tampil_manage($data);
     }
 
@@ -141,6 +139,7 @@ class Ujian extends MY_Controller
         $data = array(
             "id_paket" => $this->input->post('id_paket'),
             "id_guru" => $this->input->post('id_guru'),
+            "judul" => $this->input->post('judul'),
             "deskripsi" => $this->input->post('deskripsi'),
             "batas_waktu" => $this->input->post('batas_waktu')
         );
@@ -154,19 +153,61 @@ class Ujian extends MY_Controller
 
         // tampilkan data
         $data["message"] = "Data sudah disimpan.";
-        $data["rows"] = $this->ambil_data();
         $this->tampil_manage($data);
     }
 
-    private function ambil_data()
+    public function populate_table()
+    {
+        $search = $_POST['search']['value'];
+        $limit = $_POST['length']; 
+        $start = $_POST['start']; 
+        $order_index = $_POST['order'][0]['column']; 
+        $order_field = $_POST['columns'][$order_index]['data']; 
+        $order_ascdesc = $_POST['order'][0]['dir'];
+        
+        $data = array(
+            'draw' => $_POST['draw'] + 1,
+            'recordsTotal' => $this->count_all(),
+            'recordsFiltered' => $this->count_filter($search),
+            'data' => $this->filter($search, $limit, $start, $order_field, $order_ascdesc)
+        );
+        return $this->output
+        ->set_content_type('application/json')
+        ->set_status_header(200)
+        ->set_output(json_encode($data));
+    }
+
+    // ----- Data Access
+
+    private function filter($search, $limit, $start, $order_field, $order_ascdesc)
+    {
+        $this->db->select('ujian.id_ujian, paket.paket AS paket_soal, ujian.judul, guru.nama AS nama_guru, ujian.batas_waktu');
+        $this->db->join('guru', 'ujian.id_guru = guru.id_guru', 'inner'); #join
+        $this->db->join('paket', 'ujian.id_paket = paket.id_paket', 'inner'); #join
+        $this->db->like('ujian.judul', $search); 
+        $this->db->or_like('paket.paket', $search);
+        $this->db->or_like('guru.nama', $search);
+        $this->db->order_by($order_field, $order_ascdesc); 
+        $this->db->limit($limit, $start); 
+        
+        return $this->db->get('ujian')->result_array();
+    }
+
+    private function count_all()
+    {
+        return $this->db->count_all('ujian');
+    }
+
+    private function count_filter($search)
     {
         $this->db->select('ujian.id_ujian, paket.paket As paket_soal, ujian.judul, guru.nama As nama_guru, ujian.batas_waktu');
-        $this->db->from('guru');
-        $this->db->join('ujian', 'ujian.id_guru = guru.id_guru', 'inner'); #join
+        $this->db->join('guru', 'ujian.id_guru = guru.id_guru', 'inner'); #join
         $this->db->join('paket', 'ujian.id_paket = paket.id_paket', 'inner'); #join
-        $this->db->order_by('id_ujian', 'DESC');
+        $this->db->like('ujian.judul', $search); 
+        $this->db->or_like('paket.paket', $search);
+        $this->db->or_like('guru.nama', $search);
 
-        return $this->db->get()->result();
+        return $this->db->get('ujian')->num_rows();
     }
 
     private function ambil_paket()
@@ -179,6 +220,8 @@ class Ujian extends MY_Controller
 
         return $this->db->get()->result();
     }
+
+    // ----- View Helpers
 
     private function tampil_manage($data)
     {

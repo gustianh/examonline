@@ -8,22 +8,25 @@ class Guru extends MY_Controller
         parent::__construct();
     }
 
+    // ----- Routes
+
     public function index()
     {
-        $data["rows"] = $this->ambil_data();
-        $data["mode"] = "edit";
-        $this->tampil_manage($data);
+        $this->tampil_manage(null);
     }
 
     public function tambah()
     {
-        $data["mode"] = "edit";
+        $data["mode"] = "tambah";
+        $data["data_mapel"] =$this->db->get('mata_pelajaran')->result();
         $this->tampil_edit($data);
     }
 
     public function edit($id)
     {
+        $data["mode"] = "edit";
         $data["data"] = $this->db->get_where('guru', array('id_guru' => $id))->row();
+        $data["data_mapel"] =$this->db->get('mata_pelajaran')->result();
         $this->tampil_edit($data);
     }
 
@@ -34,7 +37,6 @@ class Guru extends MY_Controller
 
         // tampilkan data
         $data["message"] = "Data sudah dihapus.";
-        $data["rows"] = $this->ambil_data();
         $this->tampil_manage($data);
     }
 
@@ -42,11 +44,11 @@ class Guru extends MY_Controller
     {
         // buat kueri
         $data = array(
+            "id_mata_pelajaran" => $this->input->post('id_mata_pelajaran'),
             "nama" => $this->input->post('nama'),
             "tanggal_lahir" => $this->input->post('tanggal_lahir'),
             "jenis_kelamin" => $this->input->post('jenis_kelamin'),
             "nidn" => $this->input->post('nidn'),
-            "jabatan" => $this->input->post('jabatan'),
             "username" => $this->input->post('username'),
             "password" => $this->input->post('password')
         );
@@ -55,21 +57,68 @@ class Guru extends MY_Controller
             $this->db->insert('guru', $data);
         } else {
             // jika ada ID, berarti edit
+            unset($data["id_mata_pelajaran"]);
             $this->db->update('guru', $data, array('id_guru' => $this->input->post("id")));
         }
 
         // tampilkan data
         $data["message"] = "Data sudah disimpan.";
-        $data["rows"] = $this->ambil_data();
         $this->tampil_manage($data);
     }
 
-    private function ambil_data()
+    public function populate_table()
     {
-        $this->db->select('*');
-        $this->db->order_by('id_guru', 'DESC');
-        return $this->db->get('guru')->result();
+        $search = $_POST['search']['value'];
+        $limit = $_POST['length']; 
+        $start = $_POST['start']; 
+        $order_index = $_POST['order'][0]['column']; 
+        $order_field = $_POST['columns'][$order_index]['data']; 
+        $order_ascdesc = $_POST['order'][0]['dir'];
+        
+        $data = array(
+            'draw' => $_POST['draw'] + 1,
+            'recordsTotal' => $this->count_all(),
+            'recordsFiltered' => $this->count_filter($search),
+            'data' => $this->filter($search, $limit, $start, $order_field, $order_ascdesc)
+        );
+        return $this->output
+        ->set_content_type('application/json')
+        ->set_status_header(200)
+        ->set_output(json_encode($data));
     }
+
+    // ----- Data Access
+
+    private function filter($search, $limit, $start, $order_field, $order_ascdesc)
+    {
+        $this->db->select('guru.id_guru, guru.nidn, guru.nama, mata_pelajaran.nama AS mapel'); 
+        $this->db->join('mata_pelajaran', 'mata_pelajaran.id_mata_pelajaran = guru.id_mata_pelajaran');
+        $this->db->like('guru.nidn', $search); 
+        $this->db->or_like('guru.nama', $search); 
+        $this->db->or_like('mata_pelajaran.nama', $search); 
+        $this->db->order_by($order_field, $order_ascdesc); 
+        $this->db->limit($limit, $start); 
+
+        return $this->db->get('guru')->result_array();
+    }
+
+    private function count_all()
+    {
+        return $this->db->count_all('guru');
+    }
+
+    private function count_filter($search)
+    {
+        $this->db->select('guru.id_guru, guru.nidn, guru.nama, mata_pelajaran.nama AS mapel'); 
+        $this->db->join('mata_pelajaran', 'mata_pelajaran.id_mata_pelajaran = guru.id_mata_pelajaran');
+        $this->db->like('guru.nidn', $search); 
+        $this->db->or_like('guru.nama', $search); 
+        $this->db->or_like('mata_pelajaran.nama', $search); 
+
+        return $this->db->get('guru')->num_rows();
+    }
+
+    // ----- View Helpers 
 
     private function tampil_manage($data)
     {
