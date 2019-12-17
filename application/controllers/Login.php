@@ -53,8 +53,9 @@ class Login extends MY_Controller
         if ($user) {
             $newdata = array(
                 'username'  => $username,
-                'level'     => $level
+                'level'     => $level,
             );
+            if ($level == '3') $newdata["id_siswa"] = $user->id_siswa;
             $this->session->set_userdata($newdata);
             redirect("dashboard/index", 'refresh');
         } else {
