@@ -19,11 +19,10 @@
         rel="stylesheet">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?=site_url('assets/vendor/twitter-bootstrap/css/bootstrap.min.css'); ?>">
 
     <!-- Custom styles for this template-->
-    <link href="<?php echo site_url('assets/css/sb-admin-2.css'); ?>" rel="stylesheet">
+    <link href="<?=site_url('assets/css/sb-admin-2.css'); ?>" rel="stylesheet">
 </head>
 
 <body id="page-top">

@@ -23,7 +23,7 @@
             </div>
             <?php } ?>
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="table" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -34,24 +34,54 @@
                             <th>Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php foreach ($rows as $row) { ?>
-                        <tr>
-                            <td><?php echo $row->id_ujian; ?></td>
-                            <td><?php echo $row->paket_soal; ?></td>
-                            <td><?php echo $row->judul; ?></td>
-                            <td><?php echo $row->nama_guru; ?></td>
-                            <td><?php echo $row->batas_waktu; ?></td>
-                            <td><a class="btn btn-outline-warning btn-sm"
-                                    href="<?php echo site_url('ujian/edit/' . $row->id_ujian); ?>">Edit</a>
-                                <a class="btn btn-outline-danger btn-sm"
-                                    href="<?php echo site_url('ujian/hapus/' . $row->id_ujian); ?>">Hapus</a></td>
-                        </tr>
-                        <?php } ?>
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>Paket</th>
+                            <th>Judul</th>
+                            <th>Guru</th>
+                            <th>Batas Waktu</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
     </div>
 </div>
 <!-- End Page Content -->
+
+<?php function footer_block() { ?>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var tabel = $('#table').DataTable({
+                "autoWidth": false,
+                "processing": true,
+                "serverSide": true,
+                "ordering": true,
+                "order": [[0, 'asc']],
+                "ajax":
+                {
+                    "url": '<?=site_url('ujian/populate_table');?>',
+                    "type": "POST"
+                },
+                "deferRender": true,
+                "columns": [
+                    { "data": "id_ujian" },
+                    { "data": "paket_soal" },
+                    { "data": "judul" },
+                    { "data": "nama_guru" },
+                    { "data": "batas_waktu" },
+                    {
+                        "render": function (data, type, row) {
+                            var html = '<a class="btn btn-outline-warning btn-sm" href="<?=site_url('ujian/edit');?>/' + row.id_ujian + '">Edit</a>  '
+                            html += '<a class="btn btn-outline-danger btn-sm" href="<?=site_url('ujian/hapus');?>/' + row.id_ujian + '">Hapus</a>'
+                            return html;
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+<?php } ?>

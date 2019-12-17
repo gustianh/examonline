@@ -1,54 +1,75 @@
 <?php
 class Login extends MY_Controller
 {
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
     }
  
-    function index()
+    public function index()
     {
-        if ($this->is_logged_in())
-        {
+        if ($this->is_logged_in()) {
             redirect("dashboard/index", "refresh");
-        }
-        else
-        {
+        } else {
             $this->load->view('login');
         }
     }
+
+    public function register()
+    {
+        if ($this->is_logged_in()) {
+            redirect("dashboard/index", "refresh");
+        } else {
+            $data["data_kelas"] = $this->db->get('kelas')->result();
+            $this->load->view('register', $data);
+        }
+    }
+
+    public function register_do()
+    {
+        // buat kueri
+        $data = array(
+            "nis" => $this->input->post('nis'),
+            "nama" => $this->input->post('nama'),
+            "tanggal_lahir" => $this->input->post('tanggal_lahir'),
+            "jenis_kelamin" => $this->input->post('jenis_kelamin'),
+            'id_kelas' => $this->input->post("kelas"),
+            'tahun_masuk' => $this->input->post("tahun_masuk"),
+            "username" => $this->input->post('username'),
+            "password" => $this->input->post('password')
+        );
+        
+        $this->db->insert('siswa', $data);
+        redirect("login/index", "refresh");
+    }
  
-    function auth()
+    public function auth()
     {
         $username = $this->input->post("username");
         $password = $this->input->post("password");
         $level = $this->input->post("level");
 
         $user = $this->auth_user($username, $password, $level);
-        if ($user)
-        {
-            $newdata = array
-            (
+        if ($user) {
+            $newdata = array(
                 'username'  => $username,
                 'level'     => $level
             );
             $this->session->set_userdata($newdata);
             redirect("dashboard/index", 'refresh');
-        }
-        else
-        {
+        } else {
             $this->session->sess_destroy();
             redirect("login/index", 'refresh');
         }
     }
  
-    function logout()
+    public function logout()
     {
         $this->session->sess_destroy();
         redirect("login/index", 'refresh');
     }
 
-    function auth_user($username, $password, $level)
+    public function auth_user($username, $password, $level)
     {
         $kondisi = array(
             "username" => $username,

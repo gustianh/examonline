@@ -7,8 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="<?=site_url('assets/vendor/twitter-bootstrap/css/bootstrap.min.css'); ?>">
 
   <title>Sign In</title>
   <style>
@@ -63,7 +62,7 @@
 </head>
 
 <body class="text-center">
-  <form class="form-signin" action="<?php echo site_url('login/auth'); ?>" method="post">
+  <form class="form-signin" action="<?=site_url('login/auth'); ?>" method="post">
     <img class="mb-4" src="assets/img/nepal.jpg" alt="" width="72"
       height="72">
 
@@ -84,6 +83,9 @@
 
     <br>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <br>
+    <div class="text-center">
+    <a href="<?=site_url('login/register'); ?>">Daftar Akun Baru</a></div>
     <p class="mt-5 mb-3 text-muted">&copy; 2019</p>
   </form>
 </body>

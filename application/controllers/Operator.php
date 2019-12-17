@@ -8,10 +8,11 @@ class Operator extends MY_Controller
         parent::__construct();
     }
 
+    // ----- Routes
+
     public function index()
     {
-        $data["rows"] = $this->ambil_data();
-        $this->tampil_manage($data);
+        $this->tampil_manage(null);
     }
 
     public function tambah()
@@ -32,7 +33,6 @@ class Operator extends MY_Controller
 
         // tampilkan data
         $data["message"] = "Data sudah dihapus.";
-        $data["rows"] = $this->ambil_data();
         $this->tampil_manage($data);
     }
 
@@ -48,21 +48,61 @@ class Operator extends MY_Controller
             $this->db->insert('operator', $data);
         } else {
             // jika ada ID, berarti edit
-            $this->db->update('operator', $data, array('id_guru' => $this->input->post("id")));
+            $this->db->update('operator', $data, array('id_administrator' => $this->input->post("id")));
         }
 
         // tampilkan data
         $data["message"] = "Data sudah disimpan.";
-        $data["rows"] = $this->ambil_data();
         $this->tampil_manage($data);
     }
 
-    private function ambil_data()
+    public function populate_table()
     {
-        $this->db->select('*');
-        $this->db->order_by('id_administrator', 'DESC');
-        return $this->db->get('operator')->result();
+        $search = $_POST['search']['value'];
+        $limit = $_POST['length']; 
+        $start = $_POST['start']; 
+        $order_index = $_POST['order'][0]['column']; 
+        $order_field = $_POST['columns'][$order_index]['data']; 
+        $order_ascdesc = $_POST['order'][0]['dir'];
+        
+        $data = array(
+            'draw' => $_POST['draw'] + 1,
+            'recordsTotal' => $this->count_all(),
+            'recordsFiltered' => $this->count_filter($search),
+            'data' => $this->filter($search, $limit, $start, $order_field, $order_ascdesc)
+        );
+        return $this->output
+        ->set_content_type('application/json')
+        ->set_status_header(200)
+        ->set_output(json_encode($data));
     }
+
+    // ----- Data Access
+
+    private function filter($search, $limit, $start, $order_field, $order_ascdesc)
+    {
+        $this->db->select('id_administrator, username, password'); 
+        $this->db->like('username', $search); 
+        $this->db->order_by($order_field, $order_ascdesc); 
+        $this->db->limit($limit, $start); 
+
+        return $this->db->get('operator')->result_array();
+    }
+
+    private function count_all()
+    {
+        return $this->db->count_all('operator');
+    }
+
+    private function count_filter($search)
+    {
+        $this->db->select('username'); 
+        $this->db->like('username', $search); 
+
+        return $this->db->get('operator')->num_rows();
+    }
+
+    // ----- View Helpers 
 
     private function tampil_manage($data)
     {
